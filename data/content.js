@@ -8,7 +8,7 @@ window.SITE = {
     { title: "AWS AI & ML Scholars", org: "AWS", text: "Scholarship programme in AI and machine learning." },
     { title: "Social Intrapreneurship Programme", org: "Ashoka × Boehringer Ingelheim", text: "Social innovation programme." },
     { title: "UTokyo GCI", org: "Matsuo-Iwasawa Lab, University of Tokyo", text: "International innovation programme." },
-    { title: "Hanyang International Summer School (Online)", org: "Hanyang University", text: "International summer programme." }
+    { title: "Hanyang International Summer School", org: "Hanyang University", text: "International summer programme." }
   ],
   projects: [
     { title: "Machine Learning Project: Heart Disease Risk Classification", text: "", tech: [], link: "" },
