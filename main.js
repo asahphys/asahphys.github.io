@@ -1,0 +1,31 @@
+const S = window.SITE, $ = (s, r = document) => r.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const item = x => `<article class="item reveal"><div class="meta">${esc(x.date || "")}</div><div><h3>${esc(x.title)}</h3><p class="org">${esc(x.org || "")}</p><p>${esc(x.text || "")}</p></div></article>`;
+$("#name").textContent = S.name; $("#role").textContent = S.role; $("#headline").textContent = S.headline; $("#intro").textContent = S.intro;
+$("#footname").textContent = S.name; $("#year").textContent = new Date().getFullYear();
+$("#portrait").innerHTML = `<img src="${S.photo}" alt="Portrait of ${esc(S.name)}">`;
+$("#portrait img").onerror = e => e.target.replaceWith(Object.assign(document.createElement("span"), { className: "mono", textContent: S.name[0] }));
+const soc = `<a href="${S.links.linkedin}" target="_blank" rel="noopener">LinkedIn</a><a href="${S.links.github}" target="_blank" rel="noopener">GitHub</a>`;
+$("#social").innerHTML = soc; $("#contact-links").innerHTML = soc + `<a href="mailto:${S.email}">Email</a>`;
+$("#about-text").innerHTML = S.about.map(p => `<p>${esc(p)}</p>`).join("");
+$("#education-list").innerHTML = S.education.map(item).join("");
+$("#experience-list").innerHTML = S.experience.map(item).join("");
+$("#leadership-list").innerHTML = S.leadership.map(x => `<div class="card reveal"><h3>${esc(x.title)}</h3><p class="org">${esc(x.org)}</p><p>${esc(x.text)}</p></div>`).join("");
+$("#cert-list").innerHTML = S.certifications.map(item).join("");
+const label = { research: "Research", software: "Software", data: "Data" };
+$("#project-list").innerHTML = S.projects.map(p => `<div class="card reveal"><span class="tag ${p.type}">${label[p.type]}</span><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p><p class="tech">${p.tech.map(esc).join(" · ")}</p>${p.link ? `<a class="more" href="${p.link}" target="_blank" rel="noopener">View repository →</a>` : ""}</div>`).join("");
+const cats = ["All", ...new Set(S.gallery.map(g => g.cat))];
+$("#filters").innerHTML = cats.map((c, i) => `<button class="${i ? "" : "on"}" data-c="${c}">${c}</button>`).join("");
+function drawGallery(c = "All") {
+  const g = S.gallery.filter(x => c === "All" || x.cat === c);
+  $("#grid").innerHTML = g.map((x, i) => `<figure class="shot" data-i="${S.gallery.indexOf(x)}" style="--h:${[220, 300, 260][i % 3]}px"><img loading="lazy" src="${x.src}" alt="${esc(x.caption)}" onerror="this.remove()"><figcaption><b>${esc(x.cat)}</b> ${esc(x.caption)}<small>${esc(x.date)}</small></figcaption></figure>`).join("");
+}
+drawGallery();
+$("#filters").onclick = e => { if (e.target.dataset.c) { document.querySelectorAll("#filters button").forEach(b => b.classList.toggle("on", b === e.target)); drawGallery(e.target.dataset.c); } };
+const lb = $("#lightbox");
+$("#grid").onclick = e => { const f = e.target.closest(".shot"); if (!f) return; const x = S.gallery[f.dataset.i]; lb.innerHTML = `<img src="${x.src}" alt=""><p>${esc(x.caption)} · ${esc(x.date)}</p>`; lb.classList.add("open"); };
+lb.onclick = () => lb.classList.remove("open"); addEventListener("keydown", e => e.key === "Escape" && lb.classList.remove("open"));
+$("#menu").onclick = () => $("nav").classList.toggle("open");
+document.querySelectorAll("nav a").forEach(a => a.onclick = () => $("nav").classList.remove("open"));
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("in")), { threshold: .12 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
