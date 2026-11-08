@@ -101,3 +101,11 @@ footer{text-align:center;padding:20px;font-size:13px;color:var(--mut)}
 #home.solo{grid-template-columns:minmax(0,380px);justify-content:center}
 #more{display:block;max-width:760px;min-height:0}
 @media(max-width:860px){#home{min-height:0}#home .ig{max-width:420px}}
+
+/* Footer contact icons (bottom right) */
+footer{position:relative;padding:24px 5vw}
+.contact{position:absolute;right:5vw;top:50%;transform:translateY(-50%);display:flex;gap:10px}
+.contact a{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.85);border:1px solid var(--line);color:var(--mut);transition:.25s}
+.contact svg{width:18px;height:18px;fill:currentColor}
+.contact a:hover{background:var(--sky);border-color:var(--sky);color:#fff;transform:translateY(-2px)}
+@media(max-width:600px){.contact{position:static;transform:none;justify-content:center;margin-top:12px}}
