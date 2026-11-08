@@ -12,10 +12,25 @@ window.SITE = {
     "My work connects rigorous quantitative methods with business problems, from modelling subsurface carbon storage sites to understanding customers and markets.",
     "I am pursuing a career in management consulting and the energy and resources sector. TODO: add 1-2 sentences about your interests and goals."
   ],
-  education: [
-    { title: "M.Sc. Physics", org: "Institut Teknologi Bandung (ITB)", date: "Expected December 2026",
-      text: "Thesis: Dimensionality Analysis of Synthetic Magnetotelluric Responses in a 3D Reservoir Model of the Sleipner CCS Site, using the Sleipner 2019 Benchmark Model. Supervisor: Dr. Nurhasan Hasyim." },
-    { title: "TODO: Undergraduate degree", org: "TODO: University", date: "TODO", text: "TODO" }
+    education: [
+    {
+      title: "Master of Science (M.Sc.), Physics",
+      org: "Institut Teknologi Bandung (ITB)",
+      date: "Sep 2025 – Dec 2026",
+      text: "Earth Physics and Complex Systems."
+    },
+    {
+      title: "Summer School Program, Economics & Marketing",
+      org: "Hanyang University",
+      date: "Jun 2026 – Jul 2026",
+      text: "International Summer School."
+    },
+    {
+      title: "Bachelor of Science (B.Sc.), Physics",
+      org: "Universitas Lambung Mangkurat",
+      date: "Nov 2016 – May 2023",
+      text: "Undergraduate degree in Physics."
+    }
   ],
 
   leadership: [
@@ -25,20 +40,28 @@ window.SITE = {
     { title: "UTokyo GCI", org: "Matsuo-Iwasawa Lab, University of Tokyo", text: "International innovation programme." },
     { title: "Hanyang International Summer School (Online)", org: "Hanyang University", text: "International summer programme." }
   ],
-  // type: "research" | "software" | "data"
+    // type: "research" | "software" | "data"
   projects: [
-    { type: "research", title: "Magnetotelluric Dimensionality Analysis at Sleipner CCS", text: "Dimensionality analysis of synthetic MT responses on a 3D reservoir model of a carbon capture and storage site.", tech: ["Python", "Computational Physics", "MT Modelling"], link: "" },
-    { type: "software", title: "TODO: Repository name", text: "TODO: describe a public repo from github.com/asahphys.", tech: ["Python"], link: "https://github.com/asahphys" },
-    { type: "data", title: "TODO: Data analytics project", text: "TODO: describe the problem, method and result.", tech: ["Python", "SQL"], link: "" }
+    {
+      type: "research",
+      title: "Magnetotelluric Dimensionality Analysis at Sleipner CCS",
+      text: "",
+      tech: [],
+      link: ""
+    },
+    {
+      type: "research",
+      title: "3D Resistivity Modeling of the Sleipner CCS Reservoir",
+      text: "",
+      tech: [],
+      link: ""
+    },
+    {
+      type: "software",
+      title: "Personal Portfolio Website",
+      text: "",
+      tech: [],
+      link: ""
+    }
   ],
-
-  // Add photos to assets/img/gallery/ and list them here. cat: Education, Leadership, International, Professional, Research, Personal
-  gallery: [
-    { src: "assets/img/gallery/01.jpg", cat: "Education", caption: "TODO: caption", date: "2026" },
-    { src: "assets/img/gallery/02.jpg", cat: "Leadership", caption: "TODO: caption", date: "2026" },
-    { src: "assets/img/gallery/03.jpg", cat: "International", caption: "TODO: caption", date: "2025" },
-    { src: "assets/img/gallery/04.jpg", cat: "Research", caption: "TODO: caption", date: "2026" },
-    { src: "assets/img/gallery/05.jpg", cat: "Professional", caption: "TODO: caption", date: "2024" },
-    { src: "assets/img/gallery/06.jpg", cat: "Personal", caption: "TODO: caption", date: "2025" }
-  ]
 };
