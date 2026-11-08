@@ -95,3 +95,9 @@ footer{text-align:center;padding:20px;font-size:13px;color:var(--mut)}
 @media(hover:none){.arr{display:none}}
 @media(max-width:860px){#menu{display:block}nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;padding:18px 5vw;border-bottom:1px solid var(--line)}nav.open{display:flex}
 #home{grid-template-columns:1fr;gap:32px;min-height:100vh}#portrait{max-width:300px}#more{grid-template-columns:1fr;gap:28px;min-height:0}.ig{position:static;max-width:420px;width:100%;margin:auto}.page{min-height:0}}
+
+/* Gallery now lives on page 1; page 2 is a single column */
+#home .ig{position:static;width:100%;max-width:380px;justify-self:center}
+#home.solo{grid-template-columns:minmax(0,380px);justify-content:center}
+#more{display:block;max-width:760px;min-height:0}
+@media(max-width:860px){#home{min-height:0}#home .ig{max-width:420px}}
