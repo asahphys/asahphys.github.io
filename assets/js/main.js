@@ -19,7 +19,17 @@ track.innerHTML = G.map(g => `<figure><img src="${esc(g.src)}" alt="${esc(g.capt
 track.querySelectorAll("img").forEach(i => i.onerror = () => i.remove());
 dots.innerHTML = G.map((_, i) => `<i data-i="${i}"></i>`).join("");
 const go = i => track.scrollTo({ left: Math.max(0, Math.min(G.length - 1, i)) * track.clientWidth, behavior: "smooth" });
-function show(i) { cur = i; const g = G[i]; if (!g) return; $("#cap").innerHTML = `<b>${esc(g.cat)}</b> ${esc(g.caption)}<small>${esc(g.date)}</small>`; $("#count").textContent = `${i + 1}/${G.length}`; dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); }
+function show(i) {
+  cur = i;
+  if (!G[i]) return;
+
+  $("#cap").textContent = "";
+  $("#count").textContent = `${i + 1}/${G.length}`;
+
+  dots.querySelectorAll("i").forEach((d, k) => {
+    d.classList.toggle("on", k === i);
+  });
+}
 track.addEventListener("scroll", () => { const i = Math.round(track.scrollLeft / track.clientWidth); if (i !== cur) show(i); }, { passive: true });
 $(".prev").onclick = () => go(cur - 1); $(".next").onclick = () => go(cur + 1); dots.onclick = e => e.target.dataset.i && go(+e.target.dataset.i);
 $("#gallery").tabIndex = 0; $("#gallery").addEventListener("keydown", e => { if (e.key === "ArrowLeft") go(cur - 1); if (e.key === "ArrowRight") go(cur + 1); });
