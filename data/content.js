@@ -1,16 +1,8 @@
 window.SITE = {
-  name: "Ardiansah",
-  url: "https://asahphys.github.io",
-  headline: "Bridging Analytical Thinking, Technology, and Business.",
-  role: "Computational Physics Master's Candidate · Aspiring Management Consultant",
-  intro: "Globally oriented, multidisciplinary professional combining scientific research, data analytics, and commercial experience in banking, sales, and marketing.",
-  photo: "assets/img/portrait.jpg", // add your portrait here; a monogram shows until then
-  email: "TODO-your-email@example.com",
-  links: { linkedin: "https://www.linkedin.com/in/ardiansah/", github: "https://github.com/asahphys" },
+  photo: "assets/img/portrait.jpg", 
+  
   about: [
-    "I am a Master's candidate in Physics at Institut Teknologi Bandung (ITB), with prior professional experience across banking, sales, and digital marketing.",
-    "My work connects rigorous quantitative methods with business problems, from modelling subsurface carbon storage sites to understanding customers and markets.",
-    "I am pursuing a career in management consulting and the energy and resources sector. TODO: add 1-2 sentences about your interests and goals."
+    "Hi, I’m Ardians. I am interested in AI, machine learning, and data analytics, with a focus on energy transition. Outside of tech, I keep things simple and enjoy going for walks or sometimes watching movies and shows."
   ],
     education: [
     {
@@ -40,28 +32,20 @@ window.SITE = {
     { title: "UTokyo GCI", org: "Matsuo-Iwasawa Lab, University of Tokyo", text: "International innovation programme." },
     { title: "Hanyang International Summer School (Online)", org: "Hanyang University", text: "International summer programme." }
   ],
-    // type: "research" | "software" | "data"
+  
   projects: [
     {
-      type: "research",
       title: "Magnetotelluric Dimensionality Analysis at Sleipner CCS",
       text: "",
       tech: [],
       link: ""
     },
     {
-      type: "research",
       title: "3D Resistivity Modeling of the Sleipner CCS Reservoir",
       text: "",
       tech: [],
       link: ""
     },
-    {
-      type: "software",
-      title: "Personal Portfolio Website",
-      text: "",
-      tech: [],
-      link: ""
-    }
+    
   ],
 };
