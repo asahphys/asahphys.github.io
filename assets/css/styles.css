@@ -17,7 +17,10 @@ nav{display:flex;gap:24px;font-size:12px;letter-spacing:.1em;text-transform:uppe
 #education-list{margin-top:14px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:rgba(255,255,255,.85);padding:7px 13px;border-radius:14px;font-size:13px;line-height:1.3;color:var(--deep)}.chip small{display:block;color:var(--mut);font-size:11px}
 .ig{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(47,128,237,.14);outline:none}
-.ig-head{display:flex;gap:10px;align-items:center;padding:10px 14px}.ig-head small{display:block;color:var(--mut);font-size:12px;line-height:1.2}.ig-head b{font-size:14px;line-height:1.2}
+/* Hide gallery profile header */
+.ig-head {
+    display: none;
+}
 .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--leaf));color:#fff;display:grid;place-items:center;font:600 15px "Playfair Display",serif;box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--sun)}
 /* Gallery portrait configuration */
 .ig {
