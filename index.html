@@ -1,23 +1,83 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ardiansah | Bridging Analytical Thinking, Technology, and Business</title>
-<meta name="description" content="Portfolio of Ardiansah: computational physics researcher with banking, sales and marketing experience, aspiring management consultant.">
-<link rel="canonical" href="https://asahphys.github.io/"><link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta property="og:type" content="website"><meta property="og:title" content="Ardiansah | Bridging Analytical Thinking, Technology, and Business"><meta property="og:description" content="Analytics, technology and business, backed by computational physics research."><meta property="og:url" content="https://asahphys.github.io/"><meta property="og:image" content="https://asahphys.github.io/assets/img/og.jpg"><meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css"></head><body>
-<header><a class="logo" href="#home">Ardiansah</a><button id="menu" aria-label="Menu">☰</button>
-<nav><a href="#about">About</a><a href="#leadership">Leadership</a><a href="#projects">Projects</a><a href="#gallery">Gallery</a></nav></header>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ardiansah | Physics Researcher in AI, Data and Energy Transition</title>
+<meta name="description" content="Portfolio of Ardiansah, Master's candidate in Physics at Institut Teknologi Bandung, working at the intersection of AI, data analytics and the energy transition.">
+<meta name="theme-color" content="#2f80ed">
+<link rel="canonical" href="https://asahphys.github.io/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Link preview (LinkedIn, WhatsApp, etc.). Add assets/img/og.jpg (1200x630) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ardiansah">
+<meta property="og:title" content="Ardiansah | Bridging Analytical Thinking, Technology, and Business">
+<meta property="og:description" content="Master's candidate in Physics: AI, data analytics and the energy transition.">
+<meta property="og:url" content="https://asahphys.github.io/">
+<meta property="og:image" content="https://asahphys.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- Top bar: all text on this page comes from data/content.js -->
+<header>
+  <a class="logo" href="#home">Ardiansah</a>
+  <button id="menu" aria-label="Open menu">☰</button>
+  <nav aria-label="Main">
+    <a href="#about">About</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#projects">Projects</a>
+    <a href="#gallery">Gallery</a>
+  </nav>
+</header>
+
 <main>
-<section id="home" class="page"><div><h1 id="name"></h1><p class="sub" id="role"></p><p class="tagline" id="headline"></p><p id="intro"></p><div class="links" id="social"></div></div><div id="portrait"></div></section>
-<section id="more" class="page"><div class="col">
-<div id="about" class="blk"><h2>About</h2><div id="about-text"></div><div id="education-list"></div></div>
-<div id="leadership" class="blk"><h2>Leadership</h2><div class="chips" id="leadership-list"></div></div>
-<div id="projects" class="blk"><h2>Projects</h2><div id="project-list"></div></div>
-</div>
-<div id="gallery" class="ig"><div class="ig-head"><span class="av" id="av"></span><div><b>asahphys</b><small id="igsub"></small></div></div>
-<div class="ig-view"><div class="track" id="track"></div><button class="arr prev" aria-label="Previous">‹</button><button class="arr next" aria-label="Next">›</button><span class="count" id="count"></span></div>
-<div class="dots" id="dots"></div><p class="cap" id="cap"></p></div>
-</section></main>
+  <!-- PAGE 1: introduction -->
+  <section id="home" class="page" aria-label="Introduction">
+    <div>
+      <h1 id="name"></h1>
+      <p class="sub" id="role"></p>
+      <p class="tagline" id="headline"></p>
+      <p id="intro"></p>
+      <div class="links" id="social"></div>
+    </div>
+    <div id="portrait"></div>
+  </section>
+
+  <!-- PAGE 2: details (left) and photo carousel (right) -->
+  <section id="more" class="page" aria-label="Details">
+    <div class="col">
+      <div id="about" class="blk"><h2>About</h2><div id="about-text"></div><div id="education-list"></div></div>
+      <div id="leadership" class="blk"><h2>Leadership</h2><div class="chips" id="leadership-list"></div></div>
+      <div id="projects" class="blk"><h2>Projects</h2><div id="project-list"></div></div>
+    </div>
+
+    <!-- Instagram-style swipeable photos -->
+    <div id="gallery" class="ig" aria-label="Photo gallery">
+      <div class="ig-head"><span class="av" id="av"></span><div><b>asahphys</b><small id="igsub"></small></div></div>
+      <div class="ig-view">
+        <div class="track" id="track"></div>
+        <button class="arr prev" aria-label="Previous photo">‹</button>
+        <button class="arr next" aria-label="Next photo">›</button>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="dots" id="dots"></div>
+      <p class="cap" id="cap"></p>
+    </div>
+  </section>
+</main>
+
 <footer>© <span id="year"></span> <span id="footname"></span> <span id="mail"></span></footer>
-<script src="data/content.js"></script><script src="assets/js/main.js"></script></body></html>
+
+<noscript><p style="padding:90px 5vw;text-align:center">Ardiansah, Master's candidate in Physics. Please enable JavaScript, or visit <a href="https://www.linkedin.com/in/ardiansah/">LinkedIn</a> and <a href="https://github.com/asahphys">GitHub</a>.</p></noscript>
+
+<script src="data/content.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
