@@ -1,31 +1,28 @@
-const S = window.SITE, $ = (s, r = document) => r.querySelector(s);
-const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const item = x => `<article class="item reveal"><div class="meta">${esc(x.date || "")}</div><div><h3>${esc(x.title)}</h3><p class="org">${esc(x.org || "")}</p><p>${esc(x.text || "")}</p></div></article>`;
+const S = window.SITE, $ = (s, r = document) => r.querySelector(s), esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const L = k => S[k] || [];
 $("#name").textContent = S.name; $("#role").textContent = S.role; $("#headline").textContent = S.headline; $("#intro").textContent = S.intro;
-$("#footname").textContent = S.name; $("#year").textContent = new Date().getFullYear();
+$("#footname").textContent = S.name; $("#year").textContent = new Date().getFullYear(); $("#av").textContent = S.name[0]; $("#igsub").textContent = S.name;
+if (S.email && !/^TODO/i.test(S.email)) $("#mail").innerHTML = `· <a href="mailto:${esc(S.email)}">${esc(S.email)}</a>`;
 $("#portrait").innerHTML = `<img src="${S.photo}" alt="Portrait of ${esc(S.name)}">`;
 $("#portrait img").onerror = e => e.target.replaceWith(Object.assign(document.createElement("span"), { className: "mono", textContent: S.name[0] }));
-const soc = `<a href="${S.links.linkedin}" target="_blank" rel="noopener">LinkedIn</a><a href="${S.links.github}" target="_blank" rel="noopener">GitHub</a>`;
-$("#social").innerHTML = soc; $("#contact-links").innerHTML = soc + `<a href="mailto:${S.email}">Email</a>`;
-$("#about-text").innerHTML = S.about.map(p => `<p>${esc(p)}</p>`).join("");
-$("#education-list").innerHTML = S.education.map(item).join("");
-$("#experience-list").innerHTML = S.experience.map(item).join("");
-$("#leadership-list").innerHTML = S.leadership.map(x => `<div class="card reveal"><h3>${esc(x.title)}</h3><p class="org">${esc(x.org)}</p><p>${esc(x.text)}</p></div>`).join("");
-$("#cert-list").innerHTML = S.certifications.map(item).join("");
-const label = { research: "Research", software: "Software", data: "Data" };
-$("#project-list").innerHTML = S.projects.map(p => `<div class="card reveal"><span class="tag ${p.type}">${label[p.type]}</span><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p><p class="tech">${p.tech.map(esc).join(" · ")}</p>${p.link ? `<a class="more" href="${p.link}" target="_blank" rel="noopener">View repository →</a>` : ""}</div>`).join("");
-const cats = ["All", ...new Set(S.gallery.map(g => g.cat))];
-$("#filters").innerHTML = cats.map((c, i) => `<button class="${i ? "" : "on"}" data-c="${c}">${c}</button>`).join("");
-function drawGallery(c = "All") {
-  const g = S.gallery.filter(x => c === "All" || x.cat === c);
-  $("#grid").innerHTML = g.map((x, i) => `<figure class="shot" data-i="${S.gallery.indexOf(x)}" style="--h:${[220, 300, 260][i % 3]}px"><img loading="lazy" src="${x.src}" alt="${esc(x.caption)}" onerror="this.remove()"><figcaption><b>${esc(x.cat)}</b> ${esc(x.caption)}<small>${esc(x.date)}</small></figcaption></figure>`).join("");
-}
-drawGallery();
-$("#filters").onclick = e => { if (e.target.dataset.c) { document.querySelectorAll("#filters button").forEach(b => b.classList.toggle("on", b === e.target)); drawGallery(e.target.dataset.c); } };
-const lb = $("#lightbox");
-$("#grid").onclick = e => { const f = e.target.closest(".shot"); if (!f) return; const x = S.gallery[f.dataset.i]; lb.innerHTML = `<img src="${x.src}" alt=""><p>${esc(x.caption)} · ${esc(x.date)}</p>`; lb.classList.add("open"); };
-lb.onclick = () => lb.classList.remove("open"); addEventListener("keydown", e => e.key === "Escape" && lb.classList.remove("open"));
-$("#menu").onclick = () => $("nav").classList.toggle("open");
-document.querySelectorAll("nav a").forEach(a => a.onclick = () => $("nav").classList.remove("open"));
-const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("in")), { threshold: .12 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+$("#social").innerHTML = `<a href="${S.links.linkedin}" target="_blank" rel="noopener">LinkedIn</a><a href="${S.links.github}" target="_blank" rel="noopener">GitHub</a>`;
+$("#about-text").innerHTML = L("about").map(p => `<p>${esc(p)}</p>`).join("");
+$("#education-list").innerHTML = L("education").map(x => `<div class="row"><b>${esc(x.title)}</b><span>${esc(x.org)} · ${esc(x.date)}</span>${x.text && x.text !== "TODO" ? `<p>${esc(x.text)}</p>` : ""}</div>`).join("");
+$("#leadership-list").innerHTML = L("leadership").map(x => `<span class="chip" title="${esc(x.text)}">${esc(x.title)}<small>${esc(x.org)}</small></span>`).join("");
+$("#project-list").innerHTML = L("projects").map(p => `<div class="row"><b>${esc(p.title)}</b><span>${esc(p.type)} · ${p.tech.map(esc).join(", ")}</span><p>${esc(p.text)}</p>${p.link ? `<a href="${p.link}" target="_blank" rel="noopener">Repository →</a>` : ""}</div>`).join("");
+// ---- Instagram-style gallery ----
+const G = L("gallery"), track = $("#track"), dots = $("#dots"); let cur = 0;
+track.innerHTML = G.map(g => `<figure><img src="${g.src}" alt="${esc(g.caption)}" loading="lazy" draggable="false"><em>Add photo<br><small>${esc(g.src.split("/").pop())}</small></em></figure>`).join("");
+track.querySelectorAll("img").forEach(i => i.onerror = () => i.remove());
+dots.innerHTML = G.map((_, i) => `<i data-i="${i}"></i>`).join("");
+const go = i => track.scrollTo({ left: Math.max(0, Math.min(G.length - 1, i)) * track.clientWidth, behavior: "smooth" });
+function show(i) { cur = i; const g = G[i]; if (!g) return; $("#cap").innerHTML = `<b>${esc(g.cat)}</b> ${esc(g.caption)}<small>${esc(g.date)}</small>`; $("#count").textContent = `${i + 1}/${G.length}`; dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); }
+track.addEventListener("scroll", () => { const i = Math.round(track.scrollLeft / track.clientWidth); if (i !== cur) show(i); }, { passive: true });
+$(".prev").onclick = () => go(cur - 1); $(".next").onclick = () => go(cur + 1); dots.onclick = e => e.target.dataset.i && go(+e.target.dataset.i);
+$("#gallery").tabIndex = 0; $("#gallery").addEventListener("keydown", e => { if (e.key === "ArrowLeft") go(cur - 1); if (e.key === "ArrowRight") go(cur + 1); });
+let sx = 0, sl = 0, drag = false; // mouse drag-to-swipe (touch uses native swipe)
+track.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") return; drag = true; sx = e.clientX; sl = track.scrollLeft; track.classList.add("drag"); });
+addEventListener("pointermove", e => { if (drag) track.scrollLeft = sl - (e.clientX - sx); });
+addEventListener("pointerup", () => { if (!drag) return; drag = false; track.classList.remove("drag"); go(Math.round(track.scrollLeft / track.clientWidth)); });
+show(0);
+$("#menu").onclick = () => $("nav").classList.toggle("open"); document.querySelectorAll("nav a").forEach(a => a.onclick = () => $("nav").classList.remove("open"));
