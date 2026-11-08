@@ -19,9 +19,71 @@ nav{display:flex;gap:24px;font-size:12px;letter-spacing:.1em;text-transform:uppe
 .ig{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(47,128,237,.14);outline:none}
 .ig-head{display:flex;gap:10px;align-items:center;padding:10px 14px}.ig-head small{display:block;color:var(--mut);font-size:12px;line-height:1.2}.ig-head b{font-size:14px;line-height:1.2}
 .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--leaf));color:#fff;display:grid;place-items:center;font:600 15px "Playfair Display",serif;box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--sun)}
-.ig-view{position:relative}.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab;-webkit-overflow-scrolling:touch}.track::-webkit-scrollbar{display:none}.track.drag{scroll-snap-type:none;cursor:grabbing;user-select:none}
-.track figure{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/5;position:relative;background:linear-gradient(150deg,#cfeaff,#fff0c9);display:grid;place-items:center}.track figure:nth-child(even){background:linear-gradient(150deg,#d6f5e6,#d3e8ff)}.track img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none}
-.track em{font-style:normal;text-align:center;color:var(--mut);font-size:14px}.track em small{font-size:11px;opacity:.8}
+/* Gallery portrait configuration */
+.ig {
+    --gallery-width: 380px;
+    --gallery-ratio: 3 / 4;
+}
+
+.ig-view {
+    position: relative;
+}
+
+.track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+}
+
+.track::-webkit-scrollbar {
+    display: none;
+}
+
+.track.drag {
+    scroll-snap-type: none;
+    cursor: grabbing;
+    user-select: none;
+}
+
+.track figure {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    aspect-ratio: var(--gallery-ratio);
+    position: relative;
+    background: linear-gradient(150deg,#cfeaff,#fff0c9);
+    display: grid;
+    place-items: center;
+}
+
+.track figure:nth-child(even) {
+    background: linear-gradient(150deg,#d6f5e6,#d3e8ff);
+}
+
+.track img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+}
+
+.track em {
+    font-style: normal;
+    text-align: center;
+    color: var(--mut);
+    font-size: 14px;
+}
+
+.track em small {
+    font-size: 11px;
+    opacity: .8;
+}
 .arr{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:20px;line-height:1;cursor:pointer;color:var(--deep);box-shadow:0 2px 8px rgba(0,0,0,.18);opacity:0;transition:.2s}.ig-view:hover .arr{opacity:1}.prev{left:8px}.next{right:8px}
 .count{position:absolute;top:10px;right:10px;background:rgba(27,75,143,.7);color:#fff;font-size:12px;padding:2px 9px;border-radius:12px}
 .dots{display:flex;justify-content:center;gap:5px;padding:10px}.dots i{width:6px;height:6px;border-radius:50%;background:#cfdcea;cursor:pointer}.dots .on{background:var(--sky)}
