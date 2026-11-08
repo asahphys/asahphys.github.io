@@ -17,9 +17,7 @@ window.SITE = {
       text: "Thesis: Dimensionality Analysis of Synthetic Magnetotelluric Responses in a 3D Reservoir Model of the Sleipner CCS Site, using the Sleipner 2019 Benchmark Model. Supervisor: Dr. Nurhasan Hasyim." },
     { title: "TODO: Undergraduate degree", org: "TODO: University", date: "TODO", text: "TODO" }
   ],
-  experience: [
-  
-  ],
+
   leadership: [
     { title: "McKinsey Forward", org: "Cohort 2026", text: "Professional development programme." },
     { title: "AWS AI & ML Scholars", org: "AWS", text: "Scholarship programme in AI and machine learning." },
@@ -33,10 +31,7 @@ window.SITE = {
     { type: "software", title: "TODO: Repository name", text: "TODO: describe a public repo from github.com/asahphys.", tech: ["Python"], link: "https://github.com/asahphys" },
     { type: "data", title: "TODO: Data analytics project", text: "TODO: describe the problem, method and result.", tech: ["Python", "SQL"], link: "" }
   ],
-  certifications: [
-    { title: "AWS AI Academy", org: "via Dicoding", date: "TODO" },
-    { title: "TODO: Certification", org: "TODO: Issuer", date: "TODO" }
-  ],
+
   // Add photos to assets/img/gallery/ and list them here. cat: Education, Leadership, International, Professional, Research, Personal
   gallery: [
     { src: "assets/img/gallery/01.jpg", cat: "Education", caption: "TODO: caption", date: "2026" },
