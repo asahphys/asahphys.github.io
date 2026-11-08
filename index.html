@@ -6,17 +6,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css"></head><body>
-<header><a class="logo" href="#home" id="footname-h">Ardiansah</a><button id="menu" aria-label="Menu">☰</button>
-<nav><a href="#about">About</a><a href="#education">Education</a><a href="#experience">Experience</a><a href="#leadership">Leadership</a><a href="#projects">Projects</a><a href="#certifications">Certifications</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></nav></header>
+<header><a class="logo" href="#home">Ardiansah</a><button id="menu" aria-label="Menu">☰</button>
+<nav><a href="#about">About</a><a href="#education">Education</a><a href="#leadership">Leadership</a><a href="#projects">Projects</a><a href="#gallery">Gallery</a></nav></header>
 <main>
-<section id="home"><div><p class="eyebrow">Portfolio</p><h1 id="name"></h1><p class="sub" id="role"></p><p class="tagline" id="headline"></p><p id="intro"></p><div class="links" id="social"></div></div><div id="portrait"></div></section>
-<section id="about"><p class="eyebrow">About</p><h2>Professional profile</h2><div id="about-text"></div></section>
-<section id="education"><p class="eyebrow">Education</p><h2>Academic background and research</h2><div id="education-list"></div></section>
-<section id="experience"><p class="eyebrow">Experience</p><h2>Professional experience</h2><div id="experience-list"></div></section>
-<section id="leadership"><p class="eyebrow">Leadership &amp; International</p><h2>Programs and global exposure</h2><div class="cards" id="leadership-list"></div></section>
-<section id="projects"><p class="eyebrow">Projects</p><h2>Research, software and data</h2><div class="cards" id="project-list"></div></section>
-<section id="certifications"><p class="eyebrow">Certifications</p><h2>Courses and credentials</h2><div id="cert-list"></div></section>
-<section id="gallery"><p class="eyebrow">Gallery</p><h2>Moments and milestones</h2><div id="filters"></div><div id="grid"></div></section>
-<section id="contact"><p class="eyebrow">Contact</p><h2>Let's connect</h2><div class="links" id="contact-links"></div></section>
-</main><footer>© <span id="year"></span> <span id="footname"></span></footer><div id="lightbox"></div>
+<section id="home" class="page"><div><h1 id="name"></h1><p class="sub" id="role"></p><p class="tagline" id="headline"></p><p id="intro"></p><div class="links" id="social"></div></div><div id="portrait"></div></section>
+<section id="more" class="page"><div class="col">
+<div id="about" class="blk"><h2>About</h2><div id="about-text"></div></div>
+<div id="education" class="blk"><h2>Education</h2><div id="education-list"></div></div>
+<div id="leadership" class="blk"><h2>Leadership &amp; International</h2><div class="chips" id="leadership-list"></div></div>
+<div id="projects" class="blk"><h2>Projects</h2><div id="project-list"></div></div>
+</div>
+<div id="gallery" class="ig"><div class="ig-head"><span class="av" id="av"></span><div><b>asahphys</b><small id="igsub"></small></div></div>
+<div class="ig-view"><div class="track" id="track"></div><button class="arr prev" aria-label="Previous">‹</button><button class="arr next" aria-label="Next">›</button><span class="count" id="count"></span></div>
+<div class="dots" id="dots"></div><p class="cap" id="cap"></p></div>
+</section></main>
+<footer>© <span id="year"></span> <span id="footname"></span> <span id="mail"></span></footer>
 <script src="data/content.js"></script><script src="assets/js/main.js"></script></body></html>
