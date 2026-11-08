@@ -3,11 +3,10 @@ const $ = (s, r = document) => r.querySelector(s) || document.createElement("div
  esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const set = (id, v) => { const el = $(id); if (el) el.textContent = v; };
 set("#name", S.name); set("#role", S.role); set("#headline", S.headline); set("#intro", S.intro);
+// no intro text in content.js -> hide the empty text block and centre the photo gallery
+if (![S.role, S.headline, S.intro, S.links.linkedin, S.links.github].some(Boolean)) { $("#hero-text").hidden = true; $("#home").classList.add("solo"); }
 set("#footname", S.name); set("#year", new Date().getFullYear());
 if (S.email && !/^TODO/i.test(S.email)) $("#mail").innerHTML = `· <a href="mailto:${esc(S.email)}">${esc(S.email)}</a>`;
-$("#portrait").innerHTML = S.photo ? `<img src="${esc(S.photo)}" alt="Portrait of ${esc(S.name)}">` : "";
-const mono = () => { $("#portrait").innerHTML = `<span class="mono">${esc(S.name[0] || "A")}</span>`; };
-if (S.photo) $("#portrait img").onerror = mono; else mono();
 $("#social").innerHTML = [["LinkedIn", S.links.linkedin], ["GitHub", S.links.github]].filter(x => x[1]).map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`).join("");
 $("#about-text").innerHTML = S.about.map(p => `<p>${esc(p)}</p>`).join("");
 $("#education-list").innerHTML = S.education.map(x => `<div class="row"><b>${esc(x.title)}</b><span>${esc(x.org)}${x.date ? " · " + esc(x.date) : ""}</span>${x.text ? `<p>${esc(x.text)}</p>` : ""}</div>`).join("");
