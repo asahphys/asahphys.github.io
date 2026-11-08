@@ -1,5 +1,3 @@
-// ============ EDIT YOUR CONTENT HERE (only file you need to touch) ============
-// Anything marked TODO is a placeholder: replace it with your own verified information.
 window.SITE = {
   name: "Ardiansah",
   url: "https://asahphys.github.io",
@@ -10,19 +8,17 @@ window.SITE = {
   email: "TODO-your-email@example.com",
   links: { linkedin: "https://www.linkedin.com/in/ardiansah/", github: "https://github.com/asahphys" },
   about: [
-    "I am a Master's candidate in Computational Physics at Institut Teknologi Bandung (ITB), with prior professional experience across banking, sales, and digital marketing.",
+    "I am a Master's candidate in Physics at Institut Teknologi Bandung (ITB), with prior professional experience across banking, sales, and digital marketing.",
     "My work connects rigorous quantitative methods with business problems, from modelling subsurface carbon storage sites to understanding customers and markets.",
     "I am pursuing a career in management consulting and the energy and resources sector. TODO: add 1-2 sentences about your interests and goals."
   ],
   education: [
-    { title: "M.Sc. Computational Physics", org: "Institut Teknologi Bandung (ITB)", date: "Expected December 2026",
+    { title: "M.Sc. Physics", org: "Institut Teknologi Bandung (ITB)", date: "Expected December 2026",
       text: "Thesis: Dimensionality Analysis of Synthetic Magnetotelluric Responses in a 3D Reservoir Model of the Sleipner CCS Site, using the Sleipner 2019 Benchmark Model. Supervisor: Dr. Nurhasan Hasyim." },
     { title: "TODO: Undergraduate degree", org: "TODO: University", date: "TODO", text: "TODO" }
   ],
   experience: [
-    { title: "Branch Relationship Officer", org: "CIMB Niaga", date: "TODO dates", text: "TODO: add 2-3 verified achievements." },
-    { title: "Sales", org: "Honda", date: "TODO dates", text: "TODO: add 2-3 verified achievements." },
-    { title: "Digital Marketing", org: "Citra Maja Raya", date: "TODO dates", text: "TODO: add 2-3 verified achievements." }
+  
   ],
   leadership: [
     { title: "McKinsey Forward", org: "Cohort 2026", text: "Professional development programme." },
