@@ -15,7 +15,7 @@ $("#project-list").innerHTML = S.projects.map(p => { const sub = [p.type, (p.tec
 // ---- Instagram-style gallery ----
 const G = S.gallery, track = $("#track"), dots = $("#dots"); let cur = 0;
 if (!G.length) $("#gallery").style.display = "none";
-track.innerHTML = G.map(g => `<figure><img src="${esc(g.src)}" alt="${esc(g.caption)}" loading="lazy" draggable="false"><em>Add photo<br><small>${esc(String(g.src).split("/").pop())}</small></em></figure>`).join("");
+track.innerHTML = G.map(g => `<figure><img src="${esc(g.src)}" alt="${esc(g.caption)}" loading="lazy" draggable="false"></figure>`).join("");
 track.querySelectorAll("img").forEach(i => i.onerror = () => i.remove());
 dots.innerHTML = G.map((_, i) => `<i data-i="${i}"></i>`).join("");
 const go = i => track.scrollTo({ left: Math.max(0, Math.min(G.length - 1, i)) * track.clientWidth, behavior: "smooth" });
