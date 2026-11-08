@@ -1,8 +1,9 @@
 const S = Object.assign({ name: "Ardiansah", role: "", headline: "", intro: "", photo: "", email: "", links: {}, about: [], education: [], leadership: [], projects: [], gallery: [] }, window.SITE || {});
-const $ = (s, r = document) => r.querySelector(s), esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const $ = (s, r = document) => r.querySelector(s) || document.createElement("div"), // missing element -> harmless dummy, so removing HTML blocks never breaks the script
+ esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const set = (id, v) => { const el = $(id); if (el) el.textContent = v; };
 set("#name", S.name); set("#role", S.role); set("#headline", S.headline); set("#intro", S.intro);
-set("#footname", S.name); set("#year", new Date().getFullYear()); set("#av", S.name[0] || "A"); set("#igsub", S.name);
+set("#footname", S.name); set("#year", new Date().getFullYear());
 if (S.email && !/^TODO/i.test(S.email)) $("#mail").innerHTML = `· <a href="mailto:${esc(S.email)}">${esc(S.email)}</a>`;
 $("#portrait").innerHTML = S.photo ? `<img src="${esc(S.photo)}" alt="Portrait of ${esc(S.name)}">` : "";
 const mono = () => { $("#portrait").innerHTML = `<span class="mono">${esc(S.name[0] || "A")}</span>`; };
