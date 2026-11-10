@@ -4,7 +4,6 @@ window.SITE = {
 
   // Warm welcome (left side of page 1)
   welcome: "Welcome",
-  headline: "Bridging analytical thinking, technology, and business.",
   intro: "Thank you for visiting. In the next few minutes you will find the key highlights: leadership programmes, selected projects, and the soundtrack behind them. I look forward to connecting.",
 
   leadership: [
@@ -30,7 +29,17 @@ window.SITE = {
     { title: "Queen Of Disaster", artist: "Lana Del Rey" },
     { title: "Bloodline", artist: "Ariana Grande" },
     { title: "Bittersweet", artist: "Madison Beer" },
-    { title: "Birthday", artist: "Katy Perry" }
+    { title: "Birthday", artist: "Katy Perry" },
+    { title: "Love Myself", artist: "Hailee Steinfeld" },
+    { title: "Let Me Go", artist: "Hailee Steinfeld" },
+    { title: "Most Girls", artist: "Hailee Steinfeld" },
+    { title: "Capital Letters", artist: "Hailee Steinfeld" },
+    { title: "Rock Bottom", artist: "Hailee Steinfeld" },
+    { title: "Starving", artist: "Hailee Steinfeld" },
+    { title: "Coast", artist: "Hailee Steinfeld" },
+    { title: "I Love You's", artist: "Hailee Steinfeld" },
+    { title: "Wrong Direction", artist: "Hailee Steinfeld" },
+    { title: "Back To Life", artist: "Hailee Steinfeld" }
   ],
 
   // Instagram-style photos: put files in assets/img/gallery/ and list them here.
