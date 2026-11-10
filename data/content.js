@@ -39,7 +39,9 @@ window.SITE = {
     { title: "Coast", artist: "Hailee Steinfeld" },
     { title: "I Love You's", artist: "Hailee Steinfeld" },
     { title: "Wrong Direction", artist: "Hailee Steinfeld" },
-    { title: "Back To Life", artist: "Hailee Steinfeld" }
+    { title: "Back To Life", artist: "Hailee Steinfeld" },
+    { title: "All The Time", artist: "Zara Larsson" },
+    { title: "One Last Time", artist: "Ariana Grande" }
   ],
 
   // Instagram-style photos: put files in assets/img/gallery/ and list them here.
