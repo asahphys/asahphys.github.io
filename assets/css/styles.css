@@ -109,3 +109,26 @@ footer{position:relative;padding:24px 5vw}
 .contact svg{width:18px;height:18px;fill:currentColor}
 .contact a:hover{background:var(--sky);border-color:var(--sky);color:#fff;transform:translateY(-2px)}
 @media(max-width:600px){.contact{position:static;transform:none;justify-content:center;margin-top:12px}}
+
+/* Welcome text (left) + gallery pushed to the right edge */
+#home{max-width:none}
+#home .ig{justify-self:end}
+.sub:empty{display:none}
+#hero-text #intro{max-width:520px;color:var(--mut)}
+@media(max-width:860px){#home .ig{justify-self:center}}
+
+/* Music list: vinyl icon + title + artist */
+#music .music-sub{color:var(--mut);font-size:14px;margin:0 0 14px}
+#song-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.song{display:flex;align-items:center;gap:14px;padding:10px 14px;background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:14px;transition:.25s}
+.song:hover{border-color:var(--sky);transform:translateY(-2px)}
+.vinyl{flex:0 0 48px;width:48px;height:48px;border-radius:50%;box-shadow:0 4px 12px rgba(27,75,143,.22)}
+.vinyl svg{display:block;width:100%;height:100%}
+.vinyl .disc{transform-box:fill-box;transform-origin:center}
+.song:hover .disc{animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.meta{min-width:0}
+.meta b{display:block;color:var(--deep);font-weight:600;line-height:1.3}
+.meta small{display:block;font-size:13px;color:var(--mut)}
+@media(max-width:600px){#song-list{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.song:hover .disc{animation:none}}
