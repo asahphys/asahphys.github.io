@@ -38,12 +38,11 @@
 </header>
 
 <main>
-  <!-- PAGE 1: welcome text (left) + photo gallery (right, swipeable). Text comes from welcome/headline/intro in content.js -->
+  <!-- PAGE 1: welcome text (left) + photo gallery (right, swipeable). Text comes from welcome/intro in content.js -->
   <section id="home" class="page" aria-label="Photos">
     <div id="hero-text">
       <h1 id="welcome"></h1>
       <p class="sub" id="role"></p>
-      <p class="tagline" id="headline"></p>
       <p id="intro"></p>
       <div class="links" id="social"></div>
     </div>
@@ -64,7 +63,7 @@
     <div class="col">
       <div id="leadership" class="blk"><h2>Leadership</h2><div class="chips" id="leadership-list"></div></div>
       <div id="projects" class="blk"><h2>Projects</h2><div id="project-list"></div></div>
-      <div id="music" class="blk"><h2>Music</h2><p class="music-sub" id="music-sub"></p><div id="song-list"></div></div>
+      <div id="music" class="blk"><h2>Music</h2><p class="music-sub" id="music-sub"></p><div id="song-list" tabindex="0" role="region" aria-label="Song list"></div></div>
     </div>
 
   </section>
