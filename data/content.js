@@ -2,6 +2,11 @@ window.SITE = {
   url: "https://asahphys.github.io",
   photo: "assets/img/portrait.jpg",
 
+  // Warm welcome (left side of page 1)
+  welcome: "Welcome",
+  headline: "Bridging analytical thinking, technology, and business.",
+  intro: "Thank you for visiting. In the next few minutes you will find the key highlights: leadership programmes, selected projects, and the soundtrack behind them. I look forward to connecting.",
+
   leadership: [
     { title: "McKinsey Forward", org: "Cohort 2026", text: "Professional development programme." },
     { title: "AWS AI & ML Scholars", org: "AWS", text: "Scholarship programme in AI and machine learning." },
@@ -14,6 +19,20 @@ window.SITE = {
     { title: "MTA New York: Post-COVID Strategic Transit Audit", text: "", tech: [], link: "" },
     { title: "Automated Loan Eligibility Evaluation", text: "", tech: [], link: "" },
   ],
+
+  // Music list (shown below Projects): add or remove lines freely
+  musicSubtitle: "Some of the songs I listen to through the years",
+  songs: [
+    { title: "Lush Life", artist: "Zara Larsson" },
+    { title: "Ruin My Life", artist: "Zara Larsson" },
+    { title: "Diet Pepsi", artist: "Addison Rae" },
+    { title: "Shower", artist: "Becky G" },
+    { title: "Queen Of Disaster", artist: "Lana Del Rey" },
+    { title: "Bloodline", artist: "Ariana Grande" },
+    { title: "Bittersweet", artist: "Madison Beer" },
+    { title: "Birthday", artist: "Katy Perry" }
+  ],
+
   // Instagram-style photos: put files in assets/img/gallery/ and list them here.
   gallery: [
     { src: "assets/img/gallery/01.jpg" },
