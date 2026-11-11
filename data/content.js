@@ -17,6 +17,8 @@ window.SITE = {
     { title: "Machine Learning Project: Heart Disease Risk Classification", text: "", tech: [], link: "" },
     { title: "MTA New York: Post-COVID Strategic Transit Audit", text: "", tech: [], link: "" },
     { title: "Automated Loan Eligibility Evaluation", text: "", tech: [], link: "" },
+    { title: "Healthcare & Agriculture Shared Value Strategy", text: "", tech: [], link: "" },
+    { title: "Data Mining Agricultural MidTerm Project", text: "", tech: [], link: "" },
   ],
 
   // Music list (shown below Projects): add or remove lines freely
@@ -42,6 +44,18 @@ window.SITE = {
     { title: "Back To Life", artist: "Hailee Steinfeld" },
     { title: "All The Time", artist: "Zara Larsson" },
     { title: "One Last Time", artist: "Ariana Grande" }
+  ],
+
+  // Movies list (shown below Music): the list sorts itself by "date" (oldest first), so order here does not matter
+  movieSubtitle: "Some of the movies and dramas I have enjoyed",
+  movies: [
+    { title: "Me Before You", date: "2016-06-03", poster: "assets/img/movies/me-before-you.jpg" },
+    { title: "La La Land", date: "2016-12-09", poster: "assets/img/movies/la-la-land.jpg" },
+    { title: "The Bride of Habaek", date: "2017-07-03", poster: "assets/img/movies/the-bride-of-habaek.jpg" },
+    { title: "Angel's Last Mission: Love", date: "2019-07-22", poster: "assets/img/movies/angels-last-mission-love.jpg" },
+    { title: "Crash Landing on You", date: "2019-12-14", poster: "assets/img/movies/crash-landing-on-you.jpg" },
+    { title: "Start-Up", date: "2020-10-17", poster: "assets/img/movies/start-up.jpg" },
+    { title: "True Beauty", date: "2020-12-09", poster: "assets/img/movies/true-beauty.jpg" }
   ],
 
   // Instagram-style photos: put files in assets/img/gallery/ and list them here.
