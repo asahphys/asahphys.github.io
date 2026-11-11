@@ -17,6 +17,12 @@ const VINYL = `<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="1.5" y="1.5"
 set("#music-sub", S.musicSubtitle);
 $("#song-list").innerHTML = S.songs.map(s => `<div class="song"><div class="vinyl">${VINYL}</div><div class="meta"><b>${esc(s.title)}</b><small>by ${esc(s.artist)}</small></div></div>`).join("");
 if (!S.songs.length) $("#music").style.display = "none";
+// ---- Movies list (poster + title + release date, oldest first) ----
+set("#movie-sub", S.movieSubtitle || "");
+const MOVIES = (S.movies || []).slice().sort((a, b) => new Date(a.date) - new Date(b.date));
+const fmtDate = d => { const t = new Date(d); return isNaN(t) ? "" : t.toLocaleDateString("en", { month: "short", year: "numeric", timeZone: "UTC" }); };
+$("#movie-list").innerHTML = MOVIES.map(m => `<div class="movie"><div class="poster"><img src="${esc(m.poster)}" alt="Poster of ${esc(m.title)}" loading="lazy" draggable="false"></div><div class="meta"><b>${esc(m.title)}</b>${fmtDate(m.date) ? `<small>Released ${fmtDate(m.date)}</small>` : ""}</div></div>`).join("");
+if (!MOVIES.length) $("#movies").style.display = "none";
 // ---- Instagram-style gallery ----
 const G = S.gallery, track = $("#track"), dots = $("#dots"); let cur = 0;
 if (!G.length) $("#gallery").style.display = "none";
