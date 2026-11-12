@@ -58,7 +58,9 @@ window.SITE = {
     { title: "Angel's Last Mission: Love", date: "2019-07-22", poster: "assets/img/movies/angels-last-mission-love.jpg" },
     { title: "Crash Landing on You", date: "2019-12-14", poster: "assets/img/movies/crash-landing-on-you.jpg" },
     { title: "Start-Up", date: "2020-10-17", poster: "assets/img/movies/start-up.jpg" },
-    { title: "True Beauty", date: "2020-12-09", poster: "assets/img/movies/true-beauty.jpg" }
+    { title: "True Beauty", date: "2020-12-09", poster: "assets/img/movies/true-beauty.jpg" },
+    { title: "Business Proposal", date: "2022-02-28", poster: "assets/img/movies/business-proposal.jpg" },
+    { title: "Runner", date: "2026-09-11", poster: "assets/img/movies/runner.jpg" }
   ],
 
   // Instagram-style photos: put files in assets/img/gallery/ and list them here.
