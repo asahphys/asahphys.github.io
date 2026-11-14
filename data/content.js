@@ -55,6 +55,8 @@ window.SITE = {
     { title: "Me Before You", date: "2016-06-03", poster: "assets/img/movies/me-before-you.jpg" },
     { title: "La La Land", date: "2016-12-09", poster: "assets/img/movies/la-la-land.jpg" },
     { title: "The Bride of Habaek", date: "2017-07-03", poster: "assets/img/movies/the-bride-of-habaek.jpg" },
+    { title: "My ID is Gangnam Beauty", date: "2018-07-18", poster: "assets/img/movies/my-id-is-gangnam-beauty.jpg" },
+    { title: "Rookie Historian Goo Hae-ryung", date: "2019-05-06", poster: "assets/img/movies/rookie-historian-goo-hae-ryung.jpg" },
     { title: "Angel's Last Mission: Love", date: "2019-07-22", poster: "assets/img/movies/angels-last-mission-love.jpg" },
     { title: "Crash Landing on You", date: "2019-12-14", poster: "assets/img/movies/crash-landing-on-you.jpg" },
     { title: "Start-Up", date: "2020-10-17", poster: "assets/img/movies/start-up.jpg" },
