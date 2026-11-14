@@ -77,7 +77,6 @@ window.SITE = {
     { src: "assets/img/gallery/02.jpg" },
     { src: "assets/img/gallery/03.jpg" },
     { src: "assets/img/gallery/04.jpg" },
-    { src: "assets/img/gallery/05.jpg" },
-    { src: "assets/img/gallery/06.jpg" }
+    { src: "assets/img/gallery/05.jpg" }
   ]
 };
