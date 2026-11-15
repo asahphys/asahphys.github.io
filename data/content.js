@@ -6,12 +6,26 @@ window.SITE = {
   welcome: "Welcome",
   intro: "Thank you for visiting. In the next few minutes you will find the key highlights: leadership programmes, selected projects, and the soundtrack behind them. I look forward to connecting.",
 
+  // Leadership & experience: same names and order as LinkedIn (newest first).
+  // One organisation with several "roles" is shown as a single card with its roles nested inside.
   leadership: [
-    { title: "McKinsey Forward", org: "Cohort 2026", text: "Professional development programme." },
-    { title: "AWS AI & ML Scholars", org: "AWS", text: "Scholarship programme in AI and machine learning." },
-    { title: "Social Intrapreneurship Programme", org: "Ashoka × Boehringer Ingelheim", text: "Social innovation programme." },
-    { title: "UTokyo GCI", org: "Matsuo-Iwasawa Lab, University of Tokyo", text: "International innovation programme." },
-    { title: "Hanyang International Summer School", org: "Hanyang University", text: "International summer programme." }
+    { org: "Amazon Web Services (AWS)", mark: "AWS", span: "8 mos", roles: [
+      { title: "AWS Agentic AI Business Scholar", type: "Apprenticeship", date: "Jul 2026 – Nov 2026", duration: "5 mos", location: "Seattle, Washington, United States", skill: "Amazon Web Services (AWS)" },
+      { title: "AWS AI Academy", type: "Apprenticeship", date: "Apr 2026 – Sep 2026", duration: "6 mos", location: "Jakarta, Indonesia", note: "AWS x Dicoding", skill: "Amazon Web Services (AWS)" },
+      { title: "AWS AI & ML Scholar", type: "Part-time", date: "Apr 2026 – Jun 2026", duration: "3 mos", location: "Seattle, Washington, United States", skill: "Amazon Web Services (AWS)" }
+    ] },
+    { org: "Matsuo-Iwasawa Lab U-Tokyo", mark: "UT", roles: [
+      { title: "Data Science Summer Intern", type: "Part-time", date: "Apr 2026 – Aug 2026", duration: "5 mos", location: "Tokyo, Japan" }
+    ] },
+    { org: "Hanyang University", mark: "HY", roles: [
+      { title: "Hanyang International Summer School", type: "Part-time", date: "Jun 2026 – Jul 2026", duration: "2 mos", location: "Seoul, South Korea", skill: "Microeconomics" }
+    ] },
+    { org: "McKinsey & Company", mark: "M", roles: [
+      { title: "McKinsey Forward Program", type: "Part-time", date: "Mar 2026 – Jun 2026", duration: "4 mos", location: "Jakarta, Indonesia", skill: "Problem Solving" }
+    ] },
+    { org: "Ashoka", mark: "A", roles: [
+      { title: "Ashoka x Boehringer Ingelheim - Social Intrapreneurship", type: "Seasonal", date: "Apr 2026 – May 2026", duration: "2 mos", location: "Arlington, Virginia, United States", skill: "Social Entrepreneurship" }
+    ] }
   ],
   projects: [
     { title: "Machine Learning Project: Heart Disease Risk Classification", text: "", tech: [], link: "" },
