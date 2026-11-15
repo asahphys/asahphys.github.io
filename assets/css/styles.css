@@ -151,3 +151,60 @@ footer{position:relative;padding:24px 5vw}
 .poster{flex:0 0 72px;width:72px;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:linear-gradient(150deg,#cfeaff,#fff0c9);box-shadow:0 4px 12px rgba(27,75,143,.22)}
 .poster img{display:block;width:100%;height:100%;object-fit:cover}
 @media(max-width:600px){#movie-list{grid-template-columns:1fr}}
+
+/* ===== Welcome: animated neural-network background (canvas created by main.js) ===== */
+#home{position:relative;isolation:isolate}
+#neural{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 16%,#000 80%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 16%,#000 80%,transparent 100%)}
+
+/* ===== Cards fade up when they scroll into view ===== */
+.rv:not(.in){opacity:0}
+.rv.in{animation:rise .6s cubic-bezier(.2,.7,.2,1) var(--d,0ms) backwards}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+@media(prefers-reduced-motion:reduce){.rv.in{animation:none}}
+
+/* ===== Leadership: timeline of cards (organisation badge, roles, dates, place, skills) ===== */
+#leadership-list{display:block;position:relative;padding-left:32px}
+#leadership-list::before{content:"";position:absolute;left:11px;top:14px;bottom:14px;width:2px;border-radius:2px;background:linear-gradient(var(--sky),var(--leaf) 55%,var(--sun));opacity:.5}
+.lead{--ac:var(--sky);position:relative;display:flex;gap:16px;align-items:flex-start;padding:16px 18px;margin-bottom:14px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 20px rgba(47,128,237,.07);transition:transform .25s,box-shadow .25s,border-color .25s}
+.lead:nth-child(3n+2){--ac:var(--leaf)}.lead:nth-child(3n){--ac:var(--sun)}
+.lead::before{content:"";position:absolute;left:-27px;top:24px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--ac);box-shadow:0 0 0 4px rgba(47,128,237,.14);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 20%,transparent)}
+.lead:hover{transform:translateY(-3px);border-color:var(--ac);box-shadow:0 14px 32px rgba(27,75,143,.14)}
+.mark{flex:0 0 46px;height:46px;border-radius:14px;display:grid;place-items:center;font:700 13px/1 Inter,system-ui,sans-serif;letter-spacing:.02em;color:#fff;background:linear-gradient(135deg,#5aa2ff,#1b4b8f);box-shadow:0 6px 14px rgba(27,75,143,.22)}
+.lead:nth-child(3n+2) .mark{background:linear-gradient(135deg,#6fd6ae,#2a8f6c)}
+.lead:nth-child(3n) .mark{background:linear-gradient(135deg,#ffc15a,#c46f00)}
+.lb{min-width:0;flex:1}
+.lead h3,.lead h4{font:600 16px/1.35 Inter,system-ui,sans-serif;color:var(--deep)}
+.lead h4{font-size:15px}
+.lh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.org{font-size:13.5px;color:var(--ink);margin-top:1px}
+.lm{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:8px;font-size:12.5px;color:var(--mut)}
+.ic{display:inline-flex;align-items:center;gap:5px}
+.ic svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 9px;border-radius:999px;color:var(--sunD);background:rgba(246,166,35,.14)}
+.tag.alt{color:#1f7a5a;background:rgba(63,182,139,.16)}
+.note{margin-top:6px;font-size:13px;color:var(--ink)}
+.skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:999px;color:var(--deep);background:rgba(47,128,237,.08);border:1px solid rgba(47,128,237,.18)}
+.roles{display:grid;gap:16px;margin-top:12px}
+.role{position:relative;padding-left:16px;border-left:2px solid var(--line)}
+.role::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--ac)}
+
+/* ===== Projects: numbered cards ===== */
+#project-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.proj{--ac:var(--sky);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;min-height:124px;padding:18px 20px 18px 24px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 20px rgba(47,128,237,.07);transition:transform .25s,box-shadow .25s,border-color .25s}
+.proj:nth-child(3n+2){--ac:var(--leaf)}.proj:nth-child(3n){--ac:var(--sun)}
+.proj::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ac);transition:width .25s}
+.proj::after{content:"";position:absolute;right:-18px;bottom:-18px;width:130px;height:130px;background:radial-gradient(circle,var(--ac) 1.3px,transparent 1.8px) 0 0/12px 12px;opacity:.25;-webkit-mask-image:radial-gradient(circle at 100% 100%,#000 0,transparent 70%);mask-image:radial-gradient(circle at 100% 100%,#000 0,transparent 70%);pointer-events:none}
+.proj:hover{transform:translateY(-3px);border-color:var(--ac);box-shadow:0 14px 32px rgba(27,75,143,.14)}
+.proj:hover::before{width:8px}
+.pn{font:600 30px/1 "Playfair Display",Georgia,serif;color:var(--ac);opacity:.9}
+.proj h3{font:600 15.5px/1.4 Inter,system-ui,sans-serif;color:var(--deep);position:relative}
+.psub{font-size:12.5px;color:var(--mut)}
+.ptx{font-size:13.5px;color:var(--ink)}
+.plink{position:relative;margin-top:auto;font-size:13px;font-weight:500;color:var(--sky);text-decoration:none}.plink:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  #leadership-list{padding-left:26px}#leadership-list::before{left:8px}
+  .lead{padding:14px;gap:12px}.lead::before{left:-24px;top:22px}
+  .mark{flex-basis:40px;height:40px;font-size:12px}
+}
