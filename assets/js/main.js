@@ -15,7 +15,6 @@ const IC = {
   cal: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>`,
   pin: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>`
 };
-const mk = x => x.mark || String(x.org || x.title || "").replace(/\(.*?\)/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
 const roleHTML = (r, h) => {
   const sk = r.skills || (r.skill ? [r.skill] : []);
   return `<${h}>${esc(r.title)}</${h}>${r.org ? `<div class="org">${esc(r.org)}</div>` : ""}<div class="lm">${r.type ? `<span class="tag">${esc(r.type)}</span>` : ""}${r.date ? `<span class="ic">${IC.cal}${esc(r.date)}${r.duration ? " · " + esc(r.duration) : ""}</span>` : ""}${r.location ? `<span class="ic">${IC.pin}${esc(r.location)}</span>` : ""}</div>${r.note ? `<div class="note">${esc(r.note)}</div>` : ""}${sk.length ? `<div class="skills">${sk.map(s => `<span class="pill">${esc(s)}</span>`).join("")}</div>` : ""}`;
@@ -25,10 +24,24 @@ $("#leadership-list").innerHTML = S.leadership.map((x, i) => {
   const body = roles.length > 1
     ? `<div class="lh"><h3>${esc(x.org)}</h3>${x.span ? `<span class="tag alt">${esc(x.span)}</span>` : ""}</div><div class="roles">${roles.map(r => `<div class="role">${roleHTML(r, "h4")}</div>`).join("")}</div>`
     : roleHTML({ ...roles[0], org: x.org || roles[0].org }, "h3");
-  return `<article class="lead rv" style="--d:${i * 70}ms"><div class="mark" aria-hidden="true">${esc(mk(x))}</div><div class="lb">${body}</div></article>`;
+  const hex = c => /^#[0-9a-f]{3,8}$/i.test(c || "") ? c : "", bc = hex(x.color), bcd = hex(x.colorDark) || bc;
+  return `<article class="lead rv" style="${bc ? `--bc:${bc};--bcd:${bcd};` : ""}--d:${i * 70}ms"><div class="lb">${body}</div></article>`;
 }).join("");
-// ---- Projects: numbered cards (optional fields: type, tech, text, link) ----
-$("#project-list").innerHTML = S.projects.map((p, i) => { const sub = [p.type, (p.tech || []).join(", ")].filter(Boolean).join(" · "); return `<article class="proj rv" style="--d:${i * 60}ms"><span class="pn" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span><h3>${esc(p.title)}</h3>${sub ? `<div class="psub">${esc(sub)}</div>` : ""}${p.text ? `<div class="ptx">${esc(p.text)}</div>` : ""}${p.link ? `<a class="plink" href="${esc(p.link)}" target="_blank" rel="noopener">Repository →</a>` : ""}</article>`; }).join("");
+// ---- Projects: cards with an animated icon that matches the project (set "icon" in content.js; guessed from the title if missing) ----
+const PIC = {
+  heart: { c: ["#ef5a6f", "#ff8a9a"], svg: `<svg viewBox="0 0 64 64" aria-hidden="true"><path class="hb" d="M32 55C13 42 7 31 7 22.5C7 15 12.5 10 19.5 10c4.8 0 9.3 2.5 12.5 7 3.2-4.5 7.7-7 12.5-7C51.5 10 57 15 57 22.5 57 31 51 42 32 55Z" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path class="ecg" pathLength="100" d="M12 33h10l4-9 6 18 5-13 3 4h12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
+  train: { c: ["#2f80ed", "#6fb4ff"], svg: `<svg viewBox="0 0 64 64" aria-hidden="true"><g class="car"><rect x="7" y="14" width="50" height="29" rx="9" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="3"/><path d="M7 34h50" stroke="currentColor" stroke-width="2.5" opacity=".55"/><rect x="13" y="20" width="9" height="9" rx="2.5" fill="currentColor" fill-opacity=".4"/><rect x="27.5" y="20" width="9" height="9" rx="2.5" fill="currentColor" fill-opacity=".4"/><rect x="42" y="20" width="9" height="9" rx="2.5" fill="currentColor" fill-opacity=".4"/><circle cx="18" cy="46" r="3.2" fill="currentColor"/><circle cx="46" cy="46" r="3.2" fill="currentColor"/><circle cx="53" cy="38" r="1.8" fill="#f6a623"/></g><path d="M4 52h56" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path class="ties" d="M4 58h56" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 7" opacity=".55"/></svg>` },
+  loan: { c: ["#e39b12", "#ffc15a"], svg: `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M17 7h20l13 13v31a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5V12a5 5 0 0 1 5-5Z" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M37 7v13h13" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M20 28h16M20 36h12M20 44h8" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".6"/><g class="badge"><circle cx="46" cy="46" r="13" fill="#3fb68b" stroke="var(--dotfill)" stroke-width="3"/></g><path class="chk" pathLength="100" d="M40 46l4.5 4.5L53 41" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
+  care: { c: ["#2fae82", "#55e0ae"], svg: `<svg viewBox="0 0 64 64" aria-hidden="true"><path class="plus" d="M25 12h12v14h14v12H37v14H25V38H11V26h14Z" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><g class="leaf"><path d="M38 26C38 15 47 8 59 8c0 12-7 18-21 18Z" fill="currentColor"/><path d="M42 22L55 11" stroke="var(--dotfill)" stroke-width="1.8" stroke-linecap="round" opacity=".8"/></g></svg>` },
+  mining: { c: ["#8a6ff0", "#b3a1ff"], svg: `<svg viewBox="0 0 64 64" aria-hidden="true"><g class="wheat" fill="currentColor" fill-opacity=".2" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M22 58V20" fill="none" stroke-linecap="round"/><ellipse cx="22" cy="12" rx="3.4" ry="6.5"/><ellipse cx="15.5" cy="22" rx="3.4" ry="6.5" transform="rotate(-32 15.5 22)"/><ellipse cx="28.5" cy="22" rx="3.4" ry="6.5" transform="rotate(32 28.5 22)"/><ellipse cx="15.5" cy="34" rx="3.4" ry="6.5" transform="rotate(-32 15.5 34)"/><ellipse cx="28.5" cy="34" rx="3.4" ry="6.5" transform="rotate(32 28.5 34)"/></g><g class="lens"><circle cx="40" cy="36" r="11" fill="var(--dotfill)" fill-opacity=".6" stroke="currentColor" stroke-width="3.2"/><path d="M48 44l9 9" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/><path d="M35 41v-4M40 41v-9M45 41v-6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></g></svg>` },
+  spark: { c: ["#2f80ed", "#6fb4ff"], svg: `<svg viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><rect class="b1" x="10" y="30" width="10" height="26" rx="3"/><rect class="b2" x="27" y="14" width="10" height="42" rx="3"/><rect class="b3" x="44" y="24" width="10" height="32" rx="3"/></g></svg>` }
+};
+const guessIcon = t => /transit|train|rail|metro|subway|mta|transport/i.test(t) ? "train" : /heart|cardio/i.test(t) ? "heart" : /loan|credit|eligib|bank|financ/i.test(t) ? "loan" : /health|medic|care/i.test(t) ? "care" : /mining|agri|crop|farm/i.test(t) ? "mining" : "spark";
+$("#project-list").innerHTML = S.projects.map((p, i) => {
+  const ic = PIC[p.icon] || PIC[guessIcon(p.title || "")];
+  const sub = [p.type, (p.tech || []).join(", ")].filter(Boolean).join(" · ");
+  return `<article class="proj rv" style="--bc:${ic.c[0]};--bcd:${ic.c[1]};--d:${i * 60}ms"><div class="pic" aria-hidden="true">${ic.svg}</div><h3>${esc(p.title)}</h3>${sub ? `<div class="psub">${esc(sub)}</div>` : ""}${p.text ? `<div class="ptx">${esc(p.text)}</div>` : ""}${p.link ? `<a class="plink" href="${esc(p.link)}" target="_blank" rel="noopener">Repository →</a>` : ""}</article>`;
+}).join("");
 // ---- Fade-up when cards scroll into view ----
 (() => {
   const els = [...document.querySelectorAll(".rv")];
@@ -77,16 +90,44 @@ addEventListener("pointermove", e => { if (drag) track.scrollLeft = sl - (e.clie
 addEventListener("pointerup", () => { if (!drag) return; drag = false; track.classList.remove("drag"); go(Math.round(track.scrollLeft / track.clientWidth)); });
 show(0);
 $("#menu").onclick = () => $("nav").classList.toggle("open"); document.querySelectorAll("nav a").forEach(a => a.onclick = () => $("nav").classList.remove("open"));
-// ---- Hero background: animated neural network (drifting nodes, links, travelling signals) ----
+// ---- Light / dark mode: button next to the logo, remembers the choice, first visit follows the device setting ----
+(() => {
+  const root = document.documentElement, btn = $("#theme"), meta = document.querySelector('meta[name="theme-color"]');
+  const mq = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : null;
+  const saved = () => { try { const t = localStorage.getItem("theme"); return t === "dark" || t === "light" ? t : null; } catch (e) { return null; } };
+  const apply = t => {
+    root.dataset.theme = t;
+    btn.setAttribute("aria-label", t === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    btn.setAttribute("aria-pressed", String(t === "dark"));
+    if (meta) meta.setAttribute("content", t === "dark" ? "#050d1a" : "#2f80ed");
+    window.dispatchEvent(new Event("themechange"));
+  };
+  apply(root.dataset.theme === "dark" || root.dataset.theme === "light" ? root.dataset.theme : (saved() || (mq && mq.matches ? "dark" : "light")));
+  btn.onclick = () => { const t = root.dataset.theme === "dark" ? "light" : "dark"; try { localStorage.setItem("theme", t); } catch (e) {} apply(t); };
+  if (mq && mq.addEventListener) mq.addEventListener("change", e => { if (!saved()) apply(e.matches ? "dark" : "light"); });
+})();
+// ---- Night sky for dark mode (stars, aurora, mountains); styled and shown by CSS only when the theme is dark ----
+(() => {
+  if (document.getElementById("sky")) return;
+  const sky = document.createElement("div"); sky.id = "sky"; sky.setAttribute("aria-hidden", "true");
+  sky.innerHTML = '<div class="stars"></div><div class="s2"></div><div class="au a1"></div><div class="au a2"></div><div class="au a3"></div><div class="glow"></div><div class="ridge back"></div><div class="ridge far"></div><div class="ridge near"></div>';
+  document.body.prepend(sky);
+})();
+// ---- Hero background: animated neural network (drifting nodes, links, travelling signals); colours follow the theme ----
 (() => {
   const home = document.getElementById("home"); if (!home) return;
   const cv = document.createElement("canvas"); cv.id = "neural"; cv.setAttribute("aria-hidden", "true"); home.prepend(cv);
   const ctx = cv.getContext && cv.getContext("2d"); if (!ctx) return;
   const calm = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-  const SKY = [47, 128, 237], LEAF = [63, 182, 139], SUN = [246, 166, 35], NODE_COLS = [SKY, SKY, SKY, LEAF];
+  const SKY = [47, 128, 237], LEAF = [63, 182, 139], SUN = [246, 166, 35];
+  const PAL = {
+    light: { link: SKY, nodes: [SKY, SKY, SKY, LEAF], pulse: [SUN, LEAF], mouse: SUN, la: .3 },
+    dark: { link: [130, 225, 215], nodes: [[130, 200, 255], [130, 200, 255], [110, 240, 200], [175, 150, 255]], pulse: [[120, 255, 190], [200, 170, 255]], mouse: [255, 214, 120], la: .38 }
+  };
+  const pal = () => PAL[document.documentElement.dataset.theme === "dark" ? "dark" : "light"];
   let W = 0, H = 0, nodes = [], pulses = [], mouse = null, raf = 0, last = 0, spawnIn = 0, inView = true;
   const rnd = (a, b) => a + Math.random() * (b - a);
-  const newNode = () => ({ x: rnd(0, W), y: rnd(0, H), vx: rnd(-.2, .2), vy: rnd(-.2, .2), r: rnd(1.4, 3), c: NODE_COLS[(Math.random() * NODE_COLS.length) | 0] });
+  const newNode = () => ({ x: rnd(0, W), y: rnd(0, H), vx: rnd(-.2, .2), vy: rnd(-.2, .2), r: rnd(1.4, 3), c: (Math.random() * 4) | 0 });
   const reach = () => Math.max(95, Math.min(150, W * .13));
   const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
   function fit() {
@@ -115,7 +156,7 @@ $("#menu").onclick = () => $("nav").classList.toggle("open"); document.querySele
     if (spawnIn <= 0 && pulses.length < 14) {
       spawnIn = rnd(450, 1100);
       const i = (Math.random() * nodes.length) | 0, j = neighbour(i, -1);
-      if (j >= 0) pulses.push({ a: i, b: j, t: 0, v: rnd(.012, .022), hops: 0, c: Math.random() < .5 ? SUN : LEAF });
+      if (j >= 0) pulses.push({ a: i, b: j, t: 0, v: rnd(.012, .022), hops: 0, c: Math.random() < .5 ? 0 : 1 });
     }
     pulses = pulses.filter(p => {
       p.t += p.v * dt; if (p.t < 1) return true;
@@ -124,24 +165,25 @@ $("#menu").onclick = () => $("nav").classList.toggle("open"); document.querySele
     });
   }
   function draw() {
-    ctx.clearRect(0, 0, W, H);
+    const P = pal(); ctx.clearRect(0, 0, W, H);
     const L = reach(), L2 = L * L; ctx.lineWidth = 1;
     for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
       const a = nodes[i], b = nodes[j], d2 = (a.x - b.x) ** 2 + (a.y - b.y) ** 2;
-      if (d2 < L2) { ctx.strokeStyle = rgba(SKY, (1 - Math.sqrt(d2) / L) * .3); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      if (d2 < L2) { ctx.strokeStyle = rgba(P.link, (1 - Math.sqrt(d2) / L) * P.la); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
     }
     if (mouse) nodes.forEach(n => {
       const d = Math.hypot(n.x - mouse.x, n.y - mouse.y);
-      if (d < L * 1.4) { ctx.strokeStyle = rgba(SUN, (1 - d / (L * 1.4)) * .5); ctx.beginPath(); ctx.moveTo(mouse.x, mouse.y); ctx.lineTo(n.x, n.y); ctx.stroke(); }
+      if (d < L * 1.4) { ctx.strokeStyle = rgba(P.mouse, (1 - d / (L * 1.4)) * .5); ctx.beginPath(); ctx.moveTo(mouse.x, mouse.y); ctx.lineTo(n.x, n.y); ctx.stroke(); }
     });
     nodes.forEach(n => {
-      if (n.r > 2.4) { ctx.fillStyle = rgba(n.c, .1); ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 2.6, 0, 6.2832); ctx.fill(); }
-      ctx.fillStyle = rgba(n.c, .55); ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.fill();
+      const c = P.nodes[n.c];
+      if (n.r > 2.4) { ctx.fillStyle = rgba(c, .1); ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 2.6, 0, 6.2832); ctx.fill(); }
+      ctx.fillStyle = rgba(c, .55); ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.fill();
     });
     pulses.forEach(p => {
-      const a = nodes[p.a], b = nodes[p.b], x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
-      ctx.fillStyle = rgba(p.c, .16); ctx.beginPath(); ctx.arc(x, y, 8, 0, 6.2832); ctx.fill();
-      ctx.fillStyle = rgba(p.c, .95); ctx.beginPath(); ctx.arc(x, y, 3, 0, 6.2832); ctx.fill();
+      const a = nodes[p.a], b = nodes[p.b], c = P.pulse[p.c], x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
+      ctx.fillStyle = rgba(c, .16); ctx.beginPath(); ctx.arc(x, y, 8, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = rgba(c, .95); ctx.beginPath(); ctx.arc(x, y, 3, 0, 6.2832); ctx.fill();
     });
   }
   function frame(t) { raf = 0; if (!W) fit(); const dt = Math.min(48, t - (last || t)) / 16.67; last = t; step(dt); draw(); play(); }
@@ -152,6 +194,7 @@ $("#menu").onclick = () => $("nav").classList.toggle("open"); document.querySele
   if (window.ResizeObserver) new ResizeObserver(refit).observe(home); else addEventListener("resize", refit);
   if (window.IntersectionObserver) new IntersectionObserver(es => { inView = es[0].isIntersecting; inView ? play() : pause(); }).observe(home);
   document.addEventListener("visibilitychange", () => document.hidden ? pause() : play());
+  window.addEventListener("themechange", () => { if (calm) draw(); });
   home.addEventListener("pointermove", e => { if (e.pointerType !== "mouse") return; const r = cv.getBoundingClientRect(); mouse = { x: e.clientX - r.left, y: e.clientY - r.top }; }, { passive: true });
   home.addEventListener("pointerleave", () => { mouse = null; });
   play();
