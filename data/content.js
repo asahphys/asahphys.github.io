@@ -8,31 +8,33 @@ window.SITE = {
 
   // Leadership & experience: same names and order as LinkedIn (newest first).
   // One organisation with several "roles" is shown as a single card with its roles nested inside.
+  // color / colorDark = colour of the timeline dot (the organisation's brand colour) in light / dark mode.
   leadership: [
-    { org: "Amazon Web Services (AWS)", mark: "AWS", span: "8 mos", roles: [
+    { org: "Amazon Web Services (AWS)", color: "#232F3E", colorDark: "#F2F4F7", span: "8 mos", roles: [
       { title: "AWS Agentic AI Business Scholar", type: "Apprenticeship", date: "Jul 2026 – Nov 2026", duration: "5 mos", location: "Seattle, Washington, United States", skill: "Amazon Web Services (AWS)" },
       { title: "AWS AI Academy", type: "Apprenticeship", date: "Apr 2026 – Sep 2026", duration: "6 mos", location: "Jakarta, Indonesia", note: "AWS x Dicoding", skill: "Amazon Web Services (AWS)" },
       { title: "AWS AI & ML Scholar", type: "Part-time", date: "Apr 2026 – Jun 2026", duration: "3 mos", location: "Seattle, Washington, United States", skill: "Amazon Web Services (AWS)" }
     ] },
-    { org: "Matsuo-Iwasawa Lab U-Tokyo", mark: "UT", roles: [
+    { org: "Matsuo-Iwasawa Lab U-Tokyo", color: "#00A0E9", colorDark: "#4CC8FF", roles: [
       { title: "Data Science Summer Intern", type: "Part-time", date: "Apr 2026 – Aug 2026", duration: "5 mos", location: "Tokyo, Japan" }
     ] },
-    { org: "Hanyang University", mark: "HY", roles: [
+    { org: "Hanyang University", color: "#0E4A84", colorDark: "#5B9FE0", roles: [
       { title: "Hanyang International Summer School", type: "Part-time", date: "Jun 2026 – Jul 2026", duration: "2 mos", location: "Seoul, South Korea", skill: "Microeconomics" }
     ] },
-    { org: "McKinsey & Company", mark: "M", roles: [
+    { org: "McKinsey & Company", color: "#2251FF", colorDark: "#7F9BFF", roles: [
       { title: "McKinsey Forward Program", type: "Part-time", date: "Mar 2026 – Jun 2026", duration: "4 mos", location: "Jakarta, Indonesia", skill: "Problem Solving" }
     ] },
-    { org: "Ashoka", mark: "A", roles: [
+    { org: "Ashoka", color: "#2F5FA7", colorDark: "#79A9F0", roles: [
       { title: "Ashoka x Boehringer Ingelheim - Social Intrapreneurship", type: "Seasonal", date: "Apr 2026 – May 2026", duration: "2 mos", location: "Arlington, Virginia, United States", skill: "Social Entrepreneurship" }
     ] }
   ],
+  // Projects: "icon" picks the animated icon: heart, train, loan, care, mining or spark (a bar chart).
   projects: [
-    { title: "Machine Learning Project: Heart Disease Risk Classification", text: "", tech: [], link: "" },
-    { title: "MTA New York: Post-COVID Strategic Transit Audit", text: "", tech: [], link: "" },
-    { title: "Automated Loan Eligibility Evaluation", text: "", tech: [], link: "" },
-    { title: "Healthcare & Agriculture Shared Value Strategy", text: "", tech: [], link: "" },
-    { title: "Data Mining Agricultural MidTerm Project", text: "", tech: [], link: "" },
+    { title: "Machine Learning Project: Heart Disease Risk Classification", icon: "heart", text: "", tech: [], link: "" },
+    { title: "MTA New York: Post-COVID Strategic Transit Audit", icon: "train", text: "", tech: [], link: "" },
+    { title: "Automated Loan Eligibility Evaluation", icon: "loan", text: "", tech: [], link: "" },
+    { title: "Healthcare & Agriculture Shared Value Strategy", icon: "care", text: "", tech: [], link: "" },
+    { title: "Data Mining Agricultural MidTerm Project", icon: "mining", text: "", tech: [], link: "" },
   ],
 
   // Music list (shown below Projects): add or remove lines freely
