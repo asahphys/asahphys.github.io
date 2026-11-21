@@ -106,96 +106,88 @@ $("#menu").onclick = () => $("nav").classList.toggle("open"); document.querySele
   btn.onclick = () => { const t = root.dataset.theme === "dark" ? "light" : "dark"; try { localStorage.setItem("theme", t); } catch (e) {} apply(t); };
   if (mq && mq.addEventListener) mq.addEventListener("change", e => { if (!saved()) apply(e.matches ? "dark" : "light"); });
 })();
-// ---- Night sky for dark mode (stars, aurora, mountains); styled and shown by CSS only when the theme is dark ----
+// ---- Four-season backdrop for the WHOLE page (fixed layer; the season follows your scroll: spring -> summer -> autumn -> winter) ----
+// Light mode = the four American seasons. Dark mode = the four Korean seasons, K-drama style (moon, bokeh, monsoon, first snow).
 (() => {
-  if (document.getElementById("sky")) return;
-  const sky = document.createElement("div"); sky.id = "sky"; sky.setAttribute("aria-hidden", "true");
-  sky.innerHTML = '<div class="stars"></div><div class="s2"></div><div class="au a1"></div><div class="au a2"></div><div class="au a3"></div><div class="glow"></div><div class="ridge back"></div><div class="ridge far"></div><div class="ridge near"></div>';
-  document.body.prepend(sky);
-})();
-// ---- Hero background: animated neural network (drifting nodes, links, travelling signals); colours follow the theme ----
-(() => {
-  const home = document.getElementById("home"); if (!home) return;
-  const cv = document.createElement("canvas"); cv.id = "neural"; cv.setAttribute("aria-hidden", "true"); home.prepend(cv);
-  const ctx = cv.getContext && cv.getContext("2d"); if (!ctx) return;
+  if (document.getElementById("seasons")) return;
+  const root = document.documentElement, rd = Math.random, rnd = (a, b) => a + rd() * (b - a), pick = a => a[(rd() * a.length) | 0];
   const calm = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-  const SKY = [47, 128, 237], LEAF = [63, 182, 139], SUN = [246, 166, 35];
-  const PAL = {
-    light: { link: SKY, nodes: [SKY, SKY, SKY, LEAF], pulse: [SUN, LEAF], mouse: SUN, la: .3 },
-    dark: { link: [130, 225, 215], nodes: [[130, 200, 255], [130, 200, 255], [110, 240, 200], [175, 150, 255]], pulse: [[120, 255, 190], [200, 170, 255]], mouse: [255, 214, 120], la: .38 }
+  const box = document.createElement("div"); box.id = "seasons"; box.setAttribute("aria-hidden", "true");
+  box.innerHTML = '<div class="sb s0"></div><div class="sb s1"></div><div class="sb s2"></div><div class="sb s3"></div><canvas></canvas><i class="cine"></i>';
+  document.body.prepend(box);
+  const cap = document.createElement("div"); cap.id = "season-cap"; cap.setAttribute("aria-hidden", "true"); document.body.append(cap);
+  const layers = [...box.querySelectorAll(".sb")], cv = box.querySelector("canvas"), ctx = cv.getContext && cv.getContext("2d");
+  const th = () => root.dataset.theme === "dark" ? "dark" : "light";
+  const NAMES = {
+    light: [["Spring", "Washington, D.C."], ["Summer", "Cape Cod"], ["Autumn", "New England"], ["Winter", "New York"]],
+    dark: [["Spring", "Yeouido, Seoul"], ["Summer", "Seoul in the monsoon"], ["Autumn", "Nami Island"], ["Winter", "Seoul, first snow"]]
   };
-  const pal = () => PAL[document.documentElement.dataset.theme === "dark" ? "dark" : "light"];
-  let W = 0, H = 0, nodes = [], pulses = [], mouse = null, raf = 0, last = 0, spawnIn = 0, inView = true;
-  const rnd = (a, b) => a + Math.random() * (b - a);
-  const newNode = () => ({ x: rnd(0, W), y: rnd(0, H), vx: rnd(-.2, .2), vy: rnd(-.2, .2), r: rnd(1.4, 3), c: (Math.random() * 4) | 0 });
-  const reach = () => Math.max(95, Math.min(150, W * .13));
-  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
-  function fit() {
-    const nw = home.offsetWidth, nh = home.offsetHeight; if (!nw || !nh) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    if (W) nodes.forEach(n => { n.x *= nw / W; n.y *= nh / H; });
-    W = nw; H = nh; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const want = Math.max(26, Math.min(85, Math.round(W * H / 15000)));
-    while (nodes.length < want) nodes.push(newNode());
-    if (nodes.length > want) nodes.length = want;
-    pulses = pulses.filter(p => p.a < nodes.length && p.b < nodes.length);
+  // [kind, spawn rate per second at full strength, colours] for each season
+  const T = {
+    light: [[["petal", 9, ["#ffc2d6", "#ffe0ea", "#ffffff", "#ffadc7"]]], [["mote", 6, ["#ffd25e", "#fff0a0", "#ffffff"]]], [["leaf", 8, ["#d4501c", "#ee8a22", "#bf2f1e", "#e5b020"]]], [["snow", 17, ["#ffffff"]]]],
+    dark: [[["petal", 11, ["#ffb5d0", "#ffd5e5", "#ff9bbd"]], ["bokeh", .8, ["#ffb0d4", "#c9a0ff"]]], [["rain", 80, ["#a9cdf2"]], ["fly", 1.6, ["#b8ff8c"]]], [["leaf", 6, ["#ff6a3d", "#e53a2c"]], ["ginkgo", 6, ["#ffd23f", "#ffbd2e"]]], [["snow", 24, ["#ffffff", "#dbe9ff"]], ["bokeh", .9, ["#ffd89a", "#ffb36b", "#9ec5ff"]]]]
+  };
+  let W = 0, H = 0, pos = 0, cur = -1, parts = [], acc = {}, flash = 0, nextBolt = 6, last = 0, raf = 0;
+  const label = () => { const n = NAMES[th()][Math.max(0, cur)]; cap.classList.remove("on"); setTimeout(() => { cap.innerHTML = `<b>${n[0]}</b><span>${n[1]}</span>`; cap.classList.add("on"); }, 250); };
+  function scroll() {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    pos = h > 0 ? Math.min(1, Math.max(0, scrollY / h)) * 3 : 0;
+    layers.forEach((l, i) => { l.style.opacity = i ? Math.min(1, Math.max(0, pos - (i - 1))) : 1; });
+    const k = Math.min(3, Math.round(pos)); if (k !== cur) { cur = k; label(); }
   }
-  function neighbour(i, skip) {
-    const L2 = reach() ** 2, a = nodes[i], pool = [];
-    nodes.forEach((b, j) => { if (j !== i && j !== skip && (a.x - b.x) ** 2 + (a.y - b.y) ** 2 < L2) pool.push(j); });
-    return pool.length ? pool[(Math.random() * pool.length) | 0] : -1;
+  function fit() {
+    W = innerWidth; H = innerHeight; if (!ctx) return;
+    const d = Math.min(devicePixelRatio || 1, 1.5); cv.width = Math.round(W * d); cv.height = Math.round(H * d); ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function make(k, c) {
+    const p = { k, c, x: rnd(-40, W + 40), y: -24, vx: rnd(8, 35), vy: rnd(35, 75), s: rnd(5, 9), r: rnd(0, 6.3), vr: rnd(-1.6, 1.6), ph: rnd(0, 6.3), sw: rnd(10, 30), t: 0, life: 0 };
+    if (k === "leaf" || k === "ginkgo") { p.s = rnd(9, 15); p.vy = rnd(40, 80); p.sw = rnd(25, 55); }
+    if (k === "snow") { p.s = rnd(1.4, 3.8); p.vy = 22 + p.s * 14; p.vx = rnd(-10, 10); p.sw = rnd(8, 22); }
+    if (k === "rain") { p.x = rnd(0, W + 260); p.vy = rnd(720, 1000); p.vx = -170; p.s = rnd(14, 26); p.sw = 0; }
+    if (k === "mote") { p.y = H + 10; p.vy = -rnd(12, 30); p.vx = rnd(-8, 8); p.s = rnd(1.5, 4); p.life = rnd(7, 12); }
+    if (k === "fly") { p.y = rnd(H * .4, H); p.vy = rnd(-14, 14); p.vx = rnd(-14, 14); p.s = rnd(1.5, 2.6); p.life = rnd(6, 10); }
+    if (k === "bokeh") { p.y = rnd(H * .1, H); p.x = rnd(0, W); p.vy = rnd(-6, 6); p.vx = rnd(-6, 6); p.s = rnd(20, 62); p.life = rnd(7, 12); }
+    return p;
   }
   function step(dt) {
-    if (!nodes.length) return;
-    nodes.forEach(n => {
-      n.x += n.vx * dt; n.y += n.vy * dt;
-      if (n.x < 0 || n.x > W) { n.vx *= -1; n.x = Math.max(0, Math.min(W, n.x)); }
-      if (n.y < 0 || n.y > H) { n.vy *= -1; n.y = Math.max(0, Math.min(H, n.y)); }
-    });
-    spawnIn -= dt * 16.67;
-    if (spawnIn <= 0 && pulses.length < 14) {
-      spawnIn = rnd(450, 1100);
-      const i = (Math.random() * nodes.length) | 0, j = neighbour(i, -1);
-      if (j >= 0) pulses.push({ a: i, b: j, t: 0, v: rnd(.012, .022), hops: 0, c: Math.random() < .5 ? 0 : 1 });
+    const mode = th(), sc = W < 700 ? .6 : 1;
+    for (let i = 0; i < 4; i++) {
+      const w = Math.max(0, 1 - Math.abs(pos - i)); if (w < .03) continue;
+      T[mode][i].forEach(([k, rate, cols]) => { const key = i + k; acc[key] = (acc[key] || 0) + rate * w * sc * dt; while (acc[key] >= 1 && parts.length < 230) { acc[key]--; parts.push(make(k, pick(cols))); } });
     }
-    pulses = pulses.filter(p => {
-      p.t += p.v * dt; if (p.t < 1) return true;
-      if (p.hops < 4 && Math.random() < .7) { const k = neighbour(p.b, p.a); if (k >= 0) { p.a = p.b; p.b = k; p.t = 0; p.hops++; return true; } }
-      return false;
+    if (mode === "dark" && pos > .6 && pos < 1.5) { nextBolt -= dt; if (nextBolt <= 0) { flash = .3; nextBolt = rnd(6, 12); } }
+    flash *= Math.pow(.02, dt);
+    parts = parts.filter(p => {
+      p.t += dt; p.r += p.vr * dt;
+      p.x += (p.vx + Math.sin(p.t * 1.3 + p.ph) * p.sw) * dt; p.y += p.vy * dt;
+      return p.life ? p.t < p.life : (p.y < H + 30 && p.x > -80 && p.x < W + 80);
     });
   }
-  function draw() {
-    const P = pal(); ctx.clearRect(0, 0, W, H);
-    const L = reach(), L2 = L * L; ctx.lineWidth = 1;
-    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
-      const a = nodes[i], b = nodes[j], d2 = (a.x - b.x) ** 2 + (a.y - b.y) ** 2;
-      if (d2 < L2) { ctx.strokeStyle = rgba(P.link, (1 - Math.sqrt(d2) / L) * P.la); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
-    }
-    if (mouse) nodes.forEach(n => {
-      const d = Math.hypot(n.x - mouse.x, n.y - mouse.y);
-      if (d < L * 1.4) { ctx.strokeStyle = rgba(P.mouse, (1 - d / (L * 1.4)) * .5); ctx.beginPath(); ctx.moveTo(mouse.x, mouse.y); ctx.lineTo(n.x, n.y); ctx.stroke(); }
-    });
-    nodes.forEach(n => {
-      const c = P.nodes[n.c];
-      if (n.r > 2.4) { ctx.fillStyle = rgba(c, .1); ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 2.6, 0, 6.2832); ctx.fill(); }
-      ctx.fillStyle = rgba(c, .55); ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.fill();
-    });
-    pulses.forEach(p => {
-      const a = nodes[p.a], b = nodes[p.b], c = P.pulse[p.c], x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
-      ctx.fillStyle = rgba(c, .16); ctx.beginPath(); ctx.arc(x, y, 8, 0, 6.2832); ctx.fill();
-      ctx.fillStyle = rgba(c, .95); ctx.beginPath(); ctx.arc(x, y, 3, 0, 6.2832); ctx.fill();
-    });
+  function paint(p, light) {
+    const a = p.life ? Math.sin(Math.PI * p.t / p.life) : 1, fl = .5 + .5 * Math.abs(Math.cos(p.t * (p.k === "petal" ? 2 : 1.6) + p.ph));
+    ctx.save(); ctx.translate(p.x, p.y); ctx.fillStyle = p.c;
+    if (p.k === "petal") { ctx.rotate(p.r); ctx.scale(1, .45 + .55 * fl); ctx.globalAlpha = .9; ctx.beginPath(); ctx.ellipse(0, 0, p.s, p.s * .55, 0, 0, 6.283); ctx.fill(); }
+    else if (p.k === "leaf") { ctx.rotate(p.r); ctx.scale(1, fl); ctx.globalAlpha = .92; ctx.beginPath(); for (let i = 0; i < 10; i++) { const g = i * Math.PI / 5 - Math.PI / 2, r = p.s * (i % 2 ? .45 : 1); ctx[i ? "lineTo" : "moveTo"](Math.cos(g) * r, Math.sin(g) * r); } ctx.closePath(); ctx.fill(); }
+    else if (p.k === "ginkgo") { ctx.rotate(p.r); ctx.scale(1, fl); ctx.globalAlpha = .92; ctx.beginPath(); ctx.moveTo(0, p.s * .5); ctx.arc(0, p.s * .5, p.s * 1.1, -2.4, -.74); ctx.closePath(); ctx.fill(); }
+    else if (p.k === "snow") { ctx.shadowColor = light ? "rgba(90,140,210,.6)" : "rgba(255,255,255,.8)"; ctx.shadowBlur = 5; ctx.globalAlpha = .9; ctx.beginPath(); ctx.arc(0, 0, p.s, 0, 6.283); ctx.fill(); }
+    else if (p.k === "rain") { ctx.strokeStyle = p.c; ctx.globalAlpha = .32; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(p.vx * p.s / p.vy, p.s); ctx.stroke(); }
+    else if (p.k === "bokeh") { ctx.globalAlpha = a * .2; ctx.beginPath(); ctx.arc(0, 0, p.s, 0, 6.283); ctx.fill(); ctx.globalAlpha = a * .32; ctx.strokeStyle = p.c; ctx.lineWidth = 1.2; ctx.stroke(); }
+    else { const tw = .6 + .4 * Math.sin(p.t * 4 + p.ph); ctx.globalAlpha = a * .18 * tw; ctx.beginPath(); ctx.arc(0, 0, p.s * 3.4, 0, 6.283); ctx.fill(); ctx.globalAlpha = a * .95 * tw; ctx.beginPath(); ctx.arc(0, 0, p.s, 0, 6.283); ctx.fill(); }
+    ctx.restore();
   }
-  function frame(t) { raf = 0; if (!W) fit(); const dt = Math.min(48, t - (last || t)) / 16.67; last = t; step(dt); draw(); play(); }
-  function play() { if (!raf && inView && !document.hidden && !calm) raf = requestAnimationFrame(frame); }
-  function pause() { if (raf) cancelAnimationFrame(raf); raf = 0; last = 0; }
-  fit(); draw();
-  const refit = () => { fit(); if (calm) draw(); };
-  if (window.ResizeObserver) new ResizeObserver(refit).observe(home); else addEventListener("resize", refit);
-  if (window.IntersectionObserver) new IntersectionObserver(es => { inView = es[0].isIntersecting; inView ? play() : pause(); }).observe(home);
-  document.addEventListener("visibilitychange", () => document.hidden ? pause() : play());
-  window.addEventListener("themechange", () => { if (calm) draw(); });
-  home.addEventListener("pointermove", e => { if (e.pointerType !== "mouse") return; const r = cv.getBoundingClientRect(); mouse = { x: e.clientX - r.left, y: e.clientY - r.top }; }, { passive: true });
-  home.addEventListener("pointerleave", () => { mouse = null; });
-  play();
+  function frame(t) {
+    raf = 0; const dt = Math.min(.05, (t - (last || t)) / 1000); last = t;
+    step(dt); ctx.clearRect(0, 0, W, H); const light = th() === "light";
+    parts.forEach(p => paint(p, light));
+    if (flash > .01) { ctx.fillStyle = `rgba(205,222,255,${flash})`; ctx.fillRect(0, 0, W, H); }
+    play();
+  }
+  function play() { if (!raf && ctx && !document.hidden && !calm) raf = requestAnimationFrame(frame); }
+  fit(); scroll(); play();
+  addEventListener("scroll", scroll, { passive: true });
+  addEventListener("resize", () => { fit(); scroll(); });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) { cancelAnimationFrame(raf); raf = 0; last = 0; } else play(); });
+  addEventListener("themechange", () => { parts = []; acc = {}; label(); });
+  if (window.ResizeObserver) new ResizeObserver(scroll).observe(document.body);
 })();
+
