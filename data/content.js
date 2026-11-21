@@ -57,6 +57,7 @@ window.SITE = {
     { title: "Back To Life", artist: "Hailee Steinfeld", date: "2018-12" },
     { title: "Bloodline", artist: "Ariana Grande", date: "2019-02-08" },
     { title: "All The Time", artist: "Zara Larsson", date: "2019-06-21" },
+    { title: "10,000 Hours", artist: "Dan + Shay & Justin Bieber", date: "2019-10-04" },
     { title: "Wrong Direction", artist: "Hailee Steinfeld", date: "2020-01-01" },
     { title: "I Love You's", artist: "Hailee Steinfeld", date: "2020-03-26" },
     { title: "POPSTAR (Starring Justin Bieber)", artist: "DJ Khaled ft. Drake", date: "2020-07-17" },
