@@ -42,6 +42,7 @@ window.SITE = {
   songs: [
     { title: "Queen Of Disaster", artist: "Lana Del Rey", date: "2013-05-16" },
     { title: "Birthday", artist: "Katy Perry", date: "2013-10-18" },
+    { title: "I Will Never Let You Down", artist: "Rita Ora", date: "2014-03-31" },
     { title: "Shower", artist: "Becky G", date: "2014-04-23" },
     { title: "One Last Time", artist: "Ariana Grande", date: "2014-08-22" },
     { title: "Lush Life", artist: "Zara Larsson", date: "2015-06-05" },
@@ -52,7 +53,9 @@ window.SITE = {
     { title: "I'm the One", artist: "DJ Khaled ft. Justin Bieber, Chance the Rapper, Lil Wayne", date: "2017-04-28" },
     { title: "Let Me Go", artist: "Hailee Steinfeld", date: "2017-09" },
     { title: "Capital Letters", artist: "Hailee Steinfeld", date: "2018-01" },
+    { title: "I'll Be There", artist: "Jess Glynne", date: "2018-05-04" },
     { title: "No Brainer", artist: "DJ Khaled ft. Justin Bieber, Chance the Rapper, Quavo", date: "2018-07-27" },
+    { title: "Let You Love Me", artist: "Rita Ora", date: "2018-09-21" },
     { title: "Ruin My Life", artist: "Zara Larsson", date: "2018-10" },
     { title: "Back To Life", artist: "Hailee Steinfeld", date: "2018-12" },
     { title: "Bloodline", artist: "Ariana Grande", date: "2019-02-08" },
@@ -62,6 +65,7 @@ window.SITE = {
     { title: "I Love You's", artist: "Hailee Steinfeld", date: "2020-03-26" },
     { title: "POPSTAR (Starring Justin Bieber)", artist: "DJ Khaled ft. Drake", date: "2020-07-17" },
     { title: "Coast", artist: "Hailee Steinfeld", date: "2022-07-29" },
+    { title: "I'll Be There", artist: "Robin Schulz, Rita Ora & Tiago PZK", date: "2023-10-13" },
     { title: "Diet Pepsi", artist: "Addison Rae", date: "2024-08-09" },
     { title: "Bittersweet", artist: "Madison Beer", date: "2025-10-10" }
   ],
