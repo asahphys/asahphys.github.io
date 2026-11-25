@@ -10,13 +10,13 @@ window.SITE = {
   // One organisation with several "roles" is shown as a single card with its roles nested inside.
   // color / colorDark = colour of the timeline dot (the organisation's brand colour) in light / dark mode.
   leadership: [
+    { org: "Hanyang University", color: "#0E4A84", colorDark: "#5B9FE0", roles: [
+      { title: "Winter School (HIWS)", type: "Part-time", date: "Nov 2026 – Present", duration: "1 mo", location: "Seoul, South Korea", skill: "Korean and Entrepreneurship" }
+    ] },
     { org: "Amazon Web Services (AWS)", color: "#232F3E", colorDark: "#F2F4F7", span: "8 mos", roles: [
       { title: "AWS Agentic AI Business Scholar", type: "Apprenticeship", date: "Jul 2026 – Nov 2026", duration: "5 mos", location: "Seattle, Washington, United States" },
       { title: "AWS AI Academy", type: "Apprenticeship", date: "Apr 2026 – Sep 2026", duration: "6 mos", location: "Jakarta, Indonesia", note: "AWS x Dicoding" },
       { title: "AWS AI & ML Scholar", type: "Part-time", date: "Apr 2026 – Jun 2026", duration: "3 mos", location: "Seattle, Washington, United States" }
-    ] },
-    { org: "Hanyang University", color: "#0E4A84", colorDark: "#5B9FE0", roles: [
-      { title: "Winter School (HIWS)", type: "Part-time", date: "Nov 2026 – Present", duration: "1 mo", location: "Seoul, South Korea", skill: "Korean and Entrepreneurship" }
     ] },
     { org: "Matsuo-Iwasawa Lab U-Tokyo", color: "#00A0E9", colorDark: "#4CC8FF", roles: [
       { title: "Data Science Summer Intern", type: "Part-time", date: "Apr 2026 – Aug 2026", duration: "5 mos", location: "Tokyo, Japan", skill: "Data Science" }
