@@ -11,15 +11,18 @@ window.SITE = {
   // color / colorDark = colour of the timeline dot (the organisation's brand colour) in light / dark mode.
   leadership: [
     { org: "Amazon Web Services (AWS)", color: "#232F3E", colorDark: "#F2F4F7", span: "8 mos", roles: [
-      { title: "AWS Agentic AI Business Scholar", type: "Apprenticeship", date: "Jul 2026 – Nov 2026", duration: "5 mos", location: "Seattle, Washington, United States", skill: "Amazon Web Services (AWS)" },
-      { title: "AWS AI Academy", type: "Apprenticeship", date: "Apr 2026 – Sep 2026", duration: "6 mos", location: "Jakarta, Indonesia", note: "AWS x Dicoding", skill: "Amazon Web Services (AWS)" },
-      { title: "AWS AI & ML Scholar", type: "Part-time", date: "Apr 2026 – Jun 2026", duration: "3 mos", location: "Seattle, Washington, United States", skill: "Amazon Web Services (AWS)" }
-    ] },
-    { org: "Matsuo-Iwasawa Lab U-Tokyo", color: "#00A0E9", colorDark: "#4CC8FF", roles: [
-      { title: "Data Science Summer Intern", type: "Part-time", date: "Apr 2026 – Aug 2026", duration: "5 mos", location: "Tokyo, Japan" }
+      { title: "AWS Agentic AI Business Scholar", type: "Apprenticeship", date: "Jul 2026 – Nov 2026", duration: "5 mos", location: "Seattle, Washington, United States" },
+      { title: "AWS AI Academy", type: "Apprenticeship", date: "Apr 2026 – Sep 2026", duration: "6 mos", location: "Jakarta, Indonesia", note: "AWS x Dicoding" },
+      { title: "AWS AI & ML Scholar", type: "Part-time", date: "Apr 2026 – Jun 2026", duration: "3 mos", location: "Seattle, Washington, United States" }
     ] },
     { org: "Hanyang University", color: "#0E4A84", colorDark: "#5B9FE0", roles: [
-      { title: "Hanyang International Summer School", type: "Part-time", date: "Jun 2026 – Jul 2026", duration: "2 mos", location: "Seoul, South Korea", skill: "Microeconomics" }
+      { title: "Winter School (HIWS)", type: "Part-time", date: "Nov 2026 – Present", duration: "1 mo", location: "Seoul, South Korea", skill: "Korean and Entrepreneurship" }
+    ] },
+    { org: "Matsuo-Iwasawa Lab U-Tokyo", color: "#00A0E9", colorDark: "#4CC8FF", roles: [
+      { title: "Data Science Summer Intern", type: "Part-time", date: "Apr 2026 – Aug 2026", duration: "5 mos", location: "Tokyo, Japan", skill: "Data Science" }
+    ] },
+    { org: "Hanyang University", color: "#0E4A84", colorDark: "#5B9FE0", roles: [
+      { title: "Summer School (HISS)", type: "Part-time", date: "Jun 2026 – Jul 2026", duration: "2 mos", location: "Seoul, South Korea", skill: "Microeconomics" }
     ] },
     { org: "McKinsey & Company", color: "#2251FF", colorDark: "#7F9BFF", roles: [
       { title: "McKinsey Forward Program", type: "Part-time", date: "Mar 2026 – Jun 2026", duration: "4 mos", location: "Jakarta, Indonesia", skill: "Problem Solving" }
