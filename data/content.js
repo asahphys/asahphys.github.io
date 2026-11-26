@@ -50,6 +50,7 @@ window.SITE = {
     { title: "One Last Time", artist: "Ariana Grande", date: "2014-08-22" },
     { title: "Lush Life", artist: "Zara Larsson", date: "2015-06-05" },
     { title: "Love Myself", artist: "Hailee Steinfeld", date: "2015-08" },
+    { title: "Sit Still, Look Pretty", artist: "Daya", date: "2015-09-04" },
     { title: "Rock Bottom", artist: "Hailee Steinfeld", date: "2015-11" },
     { title: "Starving", artist: "Hailee Steinfeld", date: "2016-07-22" },
     { title: "Most Girls", artist: "Hailee Steinfeld", date: "2017-04" },
@@ -97,6 +98,7 @@ window.SITE = {
 
   // Instagram-style photos: put files in assets/img/gallery/ and list them here.
   gallery: [
+    { src: "assets/img/gallery/01.jpg" },
     { src: "assets/img/gallery/02.jpg" },
     { src: "assets/img/gallery/05.jpg" }
   ]
