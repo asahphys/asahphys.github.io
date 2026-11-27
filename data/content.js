@@ -98,7 +98,6 @@ window.SITE = {
 
   // Instagram-style photos: put files in assets/img/gallery/ and list them here.
   gallery: [
-    { src: "assets/img/gallery/01.jpg" },
     { src: "assets/img/gallery/02.jpg" },
     { src: "assets/img/gallery/05.jpg" }
   ]
